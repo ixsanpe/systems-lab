@@ -1,0 +1,38 @@
+# Pre-commit hooks configuration
+# See https://pre-commit.com for more information
+#
+# This repo is a monorepo of independent numbered projects (01-lsm-store,
+# 02-neural-search, ...). Generic hooks run repo-wide; language-specific
+# hooks are scoped with `files:` to the project they apply to, so a future
+# non-Python project isn't linted as Python by mistake.
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: debug-statements
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      # Run the linter
+      - id: ruff
+        files: ^02-neural-search/
+        args: [--fix, --exit-non-zero-on-fix]
+      # Run the formatter
+      - id: ruff-format
+        files: ^02-neural-search/
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.31.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]

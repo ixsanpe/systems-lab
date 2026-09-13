@@ -1,0 +1,352 @@
+[
+  {
+    "query_id": "Q01",
+    "query_en": "building permit: is a below-grade basement floor counted toward permitted floor area under setback rules",
+    "topic_de": "Baubewilligung",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q02",
+    "query_en": "permit dispute over a mobile phone antenna installation and radiation/noise limits",
+    "topic_de": "Baubewilligung",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q03",
+    "query_en": "municipal downzoning reduces buildable land use rights",
+    "topic_de": "Nutzungsplanung",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q04",
+    "query_en": "objection to a road-widening project and compensation for affected property",
+    "topic_de": "Festsetzung Strassenprojekt",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q05",
+    "query_en": "social assistance authority demands repayment after recipient concealed a pension payout",
+    "topic_de": "Sozialhilfe",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q06",
+    "query_en": "welfare benefits reduced for refusing to participate in a job integration program",
+    "topic_de": "Sozialhilfe",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q07",
+    "query_en": "residence permit revoked on suspicion of a sham marriage",
+    "topic_de": "Aufenthaltsbewilligung",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q08",
+    "query_en": "residence or settlement permit revoked due to long-term welfare dependency",
+    "topic_de": "Aufenthaltsbewilligung",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q09",
+    "query_en": "family reunification request filed after the statutory deadline had passed",
+    "topic_de": "Familiennachzug",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q10",
+    "query_en": "deportation of a long-term foreign resident challenged as disproportionate given a criminal record",
+    "topic_de": "Ausweisung",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q11",
+    "query_en": "EU/EFTA residence permit lost after losing worker status due to unemployment",
+    "topic_de": "Aufenthaltsbewilligung EU/EFTA",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q12",
+    "query_en": "driver's license suspended after being found drunk asleep in a parked car",
+    "topic_de": "Führerausweisentzug",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q13",
+    "query_en": "driver's license suspension for tailgating / insufficient following distance",
+    "topic_de": "Führerausweisentzug",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q14",
+    "query_en": "early release from prison denied due to risk of reoffending",
+    "topic_de": "bedingte Entlassung nach Art. 86 StGB",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q15",
+    "query_en": "deduction of real estate broker commission from real estate capital gains tax",
+    "topic_de": "Grundstückgewinnsteuer",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q16",
+    "query_en": "public procurement bid excluded from tender for missing a required certification",
+    "topic_de": "Submission",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q17",
+    "query_en": "extension of a domestic-violence protective order including a contact ban with children",
+    "topic_de": "Massnahmen nach Gewaltschutzgesetz",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q18",
+    "query_en": "court fee waiver requested after judgment due to a later change in financial circumstances",
+    "topic_de": "Kostenerlass",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q19",
+    "query_en": "supervisory complaint against a public prosecutor for failing to act",
+    "topic_de": "Aufsichtsbeschwerde",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q20",
+    "query_en": "public-sector employee dismissed for poor performance without a prior warning period",
+    "topic_de": "Kündigung",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q21",
+    "query_en": "dispute over minimum building-to-building distance between neighboring properties",
+    "topic_de": "Baubewilligung",
+    "court": "ZH_Verwaltungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q22",
+    "query_en": "classification of a side business as a taxable self-employment activity versus a non-taxable hobby",
+    "topic_de": "",
+    "court": "ZH_Steuerrekurs",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q23",
+    "query_en": "commuting cost deduction for driving requires proving at least one hour of time saved versus public transit",
+    "topic_de": "",
+    "court": "ZH_Steuerrekurs",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q24",
+    "query_en": "tax domicile dispute after taxpayer moved away but kept a small apartment in the old municipality",
+    "topic_de": "",
+    "court": "ZH_Steuerrekurs",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q25",
+    "query_en": "real estate capital gains tax deferral for a corporate restructuring involving a pension fund",
+    "topic_de": "",
+    "court": "ZH_Steuerrekurs",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q26",
+    "query_en": "withholding tax refund denied because the reclaim was filed after the deadline",
+    "topic_de": "",
+    "court": "ZH_Steuerrekurs",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q27",
+    "query_en": "tax deduction for professional clothing and a home office claimed by a self-employed journalist",
+    "topic_de": "",
+    "court": "ZH_Steuerrekurs",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q28",
+    "query_en": "settlement payment for director liability claimed as a deductible business expense",
+    "topic_de": "",
+    "court": "ZH_Steuerrekurs",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q29",
+    "query_en": "disability pension reduced on revision due to improvement of a psychiatric condition",
+    "topic_de": "",
+    "court": "ZH_Sozialversicherungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q30",
+    "query_en": "accident insurance denies claim because no organically provable injury was found for a chronic pain syndrome",
+    "topic_de": "",
+    "court": "ZH_Sozialversicherungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q31",
+    "query_en": "insurance case sent back to the lower instance for insufficient medical investigation",
+    "topic_de": "",
+    "court": "ZH_Sozialversicherungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q32",
+    "query_en": "statute of limitations for a damages claim starts running from when the claim accrued",
+    "topic_de": "",
+    "court": "ZH_Sozialversicherungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q33",
+    "query_en": "costs of an assistive device covered by disability insurance",
+    "topic_de": "",
+    "court": "ZH_Sozialversicherungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q34",
+    "query_en": "vocational reintegration measures denied because no disability was established",
+    "topic_de": "",
+    "court": "ZH_Sozialversicherungsgericht",
+    "judgment_basis": "full-text-abstract"
+  },
+  {
+    "query_id": "Q35",
+    "query_en": "summary debt-collection proceeding to set aside a debtor's objection (Rechtsöffnung)",
+    "topic_de": "Rechtsöffnung",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q36",
+    "query_en": "opening of bankruptcy proceedings against a debtor",
+    "topic_de": "Konkurseröffnung",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q37",
+    "query_en": "precautionary attachment (freezing) of a debtor's assets before judgment",
+    "topic_de": "Arrest",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q38",
+    "query_en": "enforcement of a civil judgment against a non-complying party",
+    "topic_de": "Vollstreckung",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q39",
+    "query_en": "contested monetary claim between private parties in civil proceedings",
+    "topic_de": "Forderung",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q40",
+    "query_en": "marital protection measures ordered while spouses are separated but not yet divorced",
+    "topic_de": "Eheschutz",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q41",
+    "query_en": "ancillary consequences of a divorce judgment on appeal",
+    "topic_de": "Ehescheidung",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q42",
+    "query_en": "dispute over the amount of child or spousal maintenance support",
+    "topic_de": "Unterhalt",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q43",
+    "query_en": "modification of a final divorce judgment following a substantial change in circumstances",
+    "topic_de": "Abänderung Scheidungsurteil",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q44",
+    "query_en": "provisional measures requested while divorce proceedings are still pending",
+    "topic_de": "Ehescheidung (vorsorgliche Massnahmen)",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q45",
+    "query_en": "prosecutor declines to open a criminal investigation into a reported offense",
+    "topic_de": "Nichtanhandnahme",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q46",
+    "query_en": "criminal proceedings discontinued before trial",
+    "topic_de": "Einstellung",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q47",
+    "query_en": "company ordered dissolved for lacking a legally required governing body",
+    "topic_de": "Organisationsmangel",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q48",
+    "query_en": "application for free legal aid denied for failing to prove indigence",
+    "topic_de": "Gesuch um unentgeltliche Rechtspflege",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q49",
+    "query_en": "formal opening of a will in probate proceedings",
+    "topic_de": "Testamentseröffnung",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  },
+  {
+    "query_id": "Q50",
+    "query_en": "contractor's lien registered against a property for unpaid construction work",
+    "topic_de": "Bauhandwerkerpfandrecht",
+    "court": "ZH_Obergericht",
+    "judgment_basis": "topic-tag-only (abstract empty pending full-text extraction)"
+  }
+]

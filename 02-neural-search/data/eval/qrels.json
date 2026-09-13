@@ -1,0 +1,1661 @@
+[
+  {
+    "query_id": "Q01",
+    "doc_id": "ZH_VG_001_-VB-2002-00149_07-05-2003.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "directly on countable-basement-area rule"
+  },
+  {
+    "query_id": "Q01",
+    "doc_id": "ZH_VG_001_-VB-2000-00042_2000-04-13.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "same rule, different commune, on point"
+  },
+  {
+    "query_id": "Q01",
+    "doc_id": "ZH_VG_001_-VB-2018-00275_29-11-2018.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "setback rules but not the basement-area question"
+  },
+  {
+    "query_id": "Q01",
+    "doc_id": "ZH_VG_001_-VB-2009-00527_05-05-2010.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "building permit but facade design, tangential"
+  },
+  {
+    "query_id": "Q01",
+    "doc_id": "ZH_VG_001_-VB-2018-00196_2018-10-04.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q02",
+    "doc_id": "ZH_VG_001_-VB-2009-00671_2010-05-05.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: antenna installation"
+  },
+  {
+    "query_id": "Q02",
+    "doc_id": "ZH_VG_001_-VB-2015-00394_07-04-2016.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "noise dispute but different facility type"
+  },
+  {
+    "query_id": "Q02",
+    "doc_id": "ZH_VG_001_-VB-2007-00240_29-08-2007.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "noise immissions but unrelated facility"
+  },
+  {
+    "query_id": "Q02",
+    "doc_id": "ZH_VG_001_-VB-2001-00123_21-06-2001.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q03",
+    "doc_id": "ZH_VG_001_-VB-2008-00298_20-08-2009.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: downzoning"
+  },
+  {
+    "query_id": "Q03",
+    "doc_id": "ZH_VG_001_-VB-2001-00313_24-10-2002.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "rezoning, related mechanism"
+  },
+  {
+    "query_id": "Q03",
+    "doc_id": "ZH_VG_001_-AN-2022-00008_2024-03-14.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "zoning revision but second-home quota, different issue"
+  },
+  {
+    "query_id": "Q03",
+    "doc_id": "ZH_VG_001_-VB-2016-00566_08-06-2017.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q04",
+    "doc_id": "ZH_VG_001_-VB-2009-00183_25-06-2009.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: road widening"
+  },
+  {
+    "query_id": "Q04",
+    "doc_id": "ZH_VG_001_-VB-2017-00372_2018-03-08.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "road project expansion, related"
+  },
+  {
+    "query_id": "Q04",
+    "doc_id": "ZH_VG_001_-VB-2005-00137_02-06-2005.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "same topic tag but purely procedural issue"
+  },
+  {
+    "query_id": "Q04",
+    "doc_id": "ZH_VG_001_-PB-2002-00011_17-04-2002.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q05",
+    "doc_id": "ZH_VG_001_-VB-2007-00337_04-10-2007.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: concealed pension payout"
+  },
+  {
+    "query_id": "Q05",
+    "doc_id": "ZH_VG_001_-VB-2007-00107_2007-04-18.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "repayment claim, same mechanism, different trigger"
+  },
+  {
+    "query_id": "Q05",
+    "doc_id": "ZH_VG_001_-VB-2013-00119_2013-04-23.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "repayment-adjacent (waiver request) but different question"
+  },
+  {
+    "query_id": "Q05",
+    "doc_id": "ZH_VG_001_-VB-2000-00041_2000-05-17.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q06",
+    "doc_id": "ZH_VG_001_-VB-2017-00509_2018-06-11.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: refusal of job integration"
+  },
+  {
+    "query_id": "Q06",
+    "doc_id": "ZH_VG_001_-VB-2024-00124_2024-05-16.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "benefit non-entry for non-cooperation, related but distinct"
+  },
+  {
+    "query_id": "Q06",
+    "doc_id": "ZH_VG_001_-SR-1997-00055_1998-04-22.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q07",
+    "doc_id": "ZH_VG_001_-VB-2012-00691_2012-11-28.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: sham marriage revocation"
+  },
+  {
+    "query_id": "Q07",
+    "doc_id": "ZH_VG_001_-VB-2013-00703_16-01-2014.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "sham marriage / second marriage fact pattern, on point"
+  },
+  {
+    "query_id": "Q07",
+    "doc_id": "ZH_VG_001_-VB-2014-00699_28-01-2015.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "revocation but short marriage duration, not alleged sham"
+  },
+  {
+    "query_id": "Q07",
+    "doc_id": "ZH_VG_001_-VB-2019-00716_2020-01-22.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q08",
+    "doc_id": "ZH_VG_001_-VB-2014-00437_18-12-2014.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: revocation for large welfare debt"
+  },
+  {
+    "query_id": "Q08",
+    "doc_id": "ZH_VG_001_-VB-2020-00162_16-09-2020.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: revocation for welfare dependency"
+  },
+  {
+    "query_id": "Q08",
+    "doc_id": "ZH_VG_001_-VB-2017-00279_19-07-2017.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "welfare dependency is one of two grounds, mixed with criminality"
+  },
+  {
+    "query_id": "Q08",
+    "doc_id": "ZH_VG_001_-KE-2024-00004_2025-06-27.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q09",
+    "doc_id": "ZH_VG_001_-VB-2021-00433_2021-12-16.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: late reunification request"
+  },
+  {
+    "query_id": "Q09",
+    "doc_id": "ZH_VG_001_-VB-2020-00527_18-11-2020.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: deadline missed"
+  },
+  {
+    "query_id": "Q09",
+    "doc_id": "ZH_VG_001_-VB-2015-00163_21-05-2015.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "deadline computation, related"
+  },
+  {
+    "query_id": "Q09",
+    "doc_id": "ZH_VG_001_-VB-2004-00446_2005-01-12.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q10",
+    "doc_id": "ZH_VG_001_-VB-2005-00150_2005-07-13.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: proportionality of deportation vs. sentence"
+  },
+  {
+    "query_id": "Q10",
+    "doc_id": "ZH_VG_001_-VB-2007-00487_2008-01-23.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "deportation upheld for drug trafficking, related"
+  },
+  {
+    "query_id": "Q10",
+    "doc_id": "ZH_VG_001_-VB-2004-00306_2004-12-01.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "deportation overturned under freedom-of-movement agreement, narrower legal basis"
+  },
+  {
+    "query_id": "Q10",
+    "doc_id": "ZH_VG_001_-KE-2026-00001_2026-01-23.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q11",
+    "doc_id": "ZH_VG_001_-VB-2019-00684_28-05-2020.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: EU/EFTA permit lost due to unemployment"
+  },
+  {
+    "query_id": "Q11",
+    "doc_id": "ZH_VG_001_-VB-2019-00761_2020-03-11.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "non-renewal for welfare dependency, related but different ground"
+  },
+  {
+    "query_id": "Q11",
+    "doc_id": "ZH_VG_001_-VB-2016-00270_2016-12-21.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "EU/EFTA permit case but centers on disability pension, different issue"
+  },
+  {
+    "query_id": "Q11",
+    "doc_id": "ZH_VG_001_-VB-2025-00461_2025-07-24.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q12",
+    "doc_id": "ZH_VG_001_-VB-2025-00185_2025-12-04.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q12",
+    "doc_id": "ZH_VG_001_-VB-2019-00110_18-07-2019.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "drunk driving suspension duration, related"
+  },
+  {
+    "query_id": "Q12",
+    "doc_id": "ZH_VG_001_-VB-2004-00089_2004-03-24.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "alcohol-related suspension but refusal-of-blood-test fact pattern"
+  },
+  {
+    "query_id": "Q12",
+    "doc_id": "ZH_VG_001_-SR-1997-00055_1998-04-22.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q13",
+    "doc_id": "ZH_VG_001_-VB-2013-00727_27-12-2013.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q13",
+    "doc_id": "ZH_VG_001_-VB-2013-00715_2013-11-22.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "license suspension but pedestrian collision, different violation type"
+  },
+  {
+    "query_id": "Q13",
+    "doc_id": "ZH_VG_001_-VB-2011-00410_21-07-2011.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q14",
+    "doc_id": "ZH_VG_001_-VB-2020-00680_09-12-2020.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: denial due to unfavorable prognosis"
+  },
+  {
+    "query_id": "Q14",
+    "doc_id": "ZH_VG_001_-VB-2015-00587_18-01-2016.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: denial due to reoffending pattern"
+  },
+  {
+    "query_id": "Q14",
+    "doc_id": "ZH_VG_001_-VB-2017-00705_2018-05-02.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "same topic but decided on procedural grounds (insufficient reasoning), not risk"
+  },
+  {
+    "query_id": "Q14",
+    "doc_id": "ZH_VG_001_-VB-2015-00618_2016-01-07.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q15",
+    "doc_id": "ZH_VG_001_-SB-2024-00099_2025-11-12.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: broker commission deduction"
+  },
+  {
+    "query_id": "Q15",
+    "doc_id": "ZH_VG_001_-SB-2015-00014_03-06-2015.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match, different fact pattern (related-party commission)"
+  },
+  {
+    "query_id": "Q15",
+    "doc_id": "ZH_VG_001_-VB-2018-00338_2018-07-11.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q16",
+    "doc_id": "ZH_VG_001_-VB-2020-00879_2021-03-04.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: exclusion for missing certification"
+  },
+  {
+    "query_id": "Q16",
+    "doc_id": "ZH_VG_001_-VB-2015-00618_2016-01-07.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "exclusion for missing association membership, related mechanism"
+  },
+  {
+    "query_id": "Q16",
+    "doc_id": "ZH_VG_001_-VB-2018-00196_2018-10-04.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "bid exclusion but for a pricing defect, different issue"
+  },
+  {
+    "query_id": "Q16",
+    "doc_id": "ZH_VG_001_-VB-2018-00417_11-07-2019.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q17",
+    "doc_id": "ZH_VG_001_-VB-2011-00485_2011-08-30.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q17",
+    "doc_id": "ZH_VG_001_-VB-2019-00325_19-06-2019.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: contact ban with child"
+  },
+  {
+    "query_id": "Q17",
+    "doc_id": "ZH_VG_001_-VB-2025-00439_2025-08-07.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "same topic but decided purely on missed appeal deadline"
+  },
+  {
+    "query_id": "Q17",
+    "doc_id": "ZH_VG_001_-VB-2021-00015_2021-07-16.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q18",
+    "doc_id": "ZH_VG_001_-KE-2025-00009_2025-09-12.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q18",
+    "doc_id": "ZH_VG_001_-KE-2016-00003_2017-01-24.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "fee waiver doctrine, general rule statement"
+  },
+  {
+    "query_id": "Q18",
+    "doc_id": "ZH_VG_001_-VB-2001-00058_28-03-2001.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q19",
+    "doc_id": "ZH_VG_001_-VB-2025-00445_2025-07-18.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q19",
+    "doc_id": "ZH_VG_001_-VB-2006-00143_04-05-2006.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "supervisory/delay complaint but against cantonal government, not prosecutor"
+  },
+  {
+    "query_id": "Q19",
+    "doc_id": "ZH_VG_001_-VB-2008-00494_2010-07-08.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q20",
+    "doc_id": "ZH_VG_001_-VB-2013-00029_26-06-2013.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 3,
+    "note": "exact match: dismissal without warning period"
+  },
+  {
+    "query_id": "Q20",
+    "doc_id": "ZH_VG_001_-VB-2024-00495_2026-02-05.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "dismissal case but economic-reasons pretext, different issue"
+  },
+  {
+    "query_id": "Q20",
+    "doc_id": "ZH_VG_001_-VB-2018-00642_03-04-2019.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "dismissal for breach of duty, not performance/warning-period"
+  },
+  {
+    "query_id": "Q20",
+    "doc_id": "ZH_VG_001_-VB-2006-00278_2007-05-23.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q21",
+    "doc_id": "ZH_VG_001_-VB-2003-00340_2003-12-03.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 2,
+    "note": "building proximity rights dispute"
+  },
+  {
+    "query_id": "Q21",
+    "doc_id": "ZH_VG_001_-VB-2018-00275_29-11-2018.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 1,
+    "note": "setback-adjacent topic (road distance), different question"
+  },
+  {
+    "query_id": "Q21",
+    "doc_id": "ZH_VG_001_-VB-2000-00159_2000-08-29.json",
+    "court": "ZH_Verwaltungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q22",
+    "doc_id": "ZH_SRK_001_DB-2016-149_2019-04-25.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 3,
+    "note": "exact match: hobby vs. self-employment"
+  },
+  {
+    "query_id": "Q22",
+    "doc_id": "ZH_SRK_001_DB-2018-193_2020-04-07.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q23",
+    "doc_id": "ZH_SRK_001_DB-2011-102_2011-09-19.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q23",
+    "doc_id": "ZH_SRK_001_ST-2012-43_2012-04-10.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q24",
+    "doc_id": "ZH_SRK_001_2012_2012-12-04.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q24",
+    "doc_id": "ZH_SRK_001_2010_2011-02-04.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q25",
+    "doc_id": "ZH_SRK_001_GR-2019-13_2020-10-27.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q25",
+    "doc_id": "ZH_SRK_001_GR-2020-11_2020-12-21.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 1,
+    "note": "real estate gains tax but inter-cantonal loss offset, different mechanism"
+  },
+  {
+    "query_id": "Q25",
+    "doc_id": "ZH_SRK_001_2014_2014-11-26.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q26",
+    "doc_id": "ZH_SRK_001_VS-2023-2_2024-11-04.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q26",
+    "doc_id": "ZH_SRK_001_ST-2008-409_2009-03-19.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q27",
+    "doc_id": "ZH_SRK_001_ST-2008-402_2009-07-09.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q27",
+    "doc_id": "ZH_SRK_001_2012_2013-01-30.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q28",
+    "doc_id": "ZH_SRK_001_DB-2012-183---184_2012-09-16.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q28",
+    "doc_id": "ZH_SRK_001_DB-2019-42_2019-06-25.json",
+    "court": "ZH_Steuerrekurs",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q29",
+    "doc_id": "ZH_SVG_001_IV-2024-00387_2025-03-14.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q29",
+    "doc_id": "ZH_SVG_001_IV-2010-00635_2011-06-30.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 1,
+    "note": "pension revision topic but claimant failed to show deterioration, inverse fact pattern"
+  },
+  {
+    "query_id": "Q29",
+    "doc_id": "ZH_SVG_001_IV-2009-01210_2011-06-07.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q30",
+    "doc_id": "ZH_SVG_001_UV-2007-00221_2009-01-30.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q30",
+    "doc_id": "ZH_SVG_001_UV-2003-00007_2004-02-09.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 2,
+    "note": "organic-proof issue for a different injury type, same doctrine"
+  },
+  {
+    "query_id": "Q30",
+    "doc_id": "ZH_SVG_001_IV-2011-00946_2012-05-08.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q31",
+    "doc_id": "ZH_SVG_001_IV-2022-00099_2022-11-29.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q31",
+    "doc_id": "ZH_SVG_001_IV-2007-00510_2009-01-29.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 3,
+    "note": "exact match: remand for further medical clarification"
+  },
+  {
+    "query_id": "Q31",
+    "doc_id": "ZH_SVG_001_IV-2010-00608_2010-11-16.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q32",
+    "doc_id": "ZH_SVG_001_AK-2016-00037_2017-05-29.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q32",
+    "doc_id": "ZH_SVG_001_IV-2022-00063_2022-11-11.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q33",
+    "doc_id": "ZH_SVG_001_IV-2009-01210_2011-06-07.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 3,
+    "note": "exact match (topic label doubles as content here)"
+  },
+  {
+    "query_id": "Q33",
+    "doc_id": "ZH_SVG_001_AL-2010-00203_2011-03-24.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q34",
+    "doc_id": "ZH_SVG_001_IV-2019-00392_2019-08-15.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 3,
+    "note": "exact match"
+  },
+  {
+    "query_id": "Q34",
+    "doc_id": "ZH_SVG_001_IV-2007-00437_2007-07-11.json",
+    "court": "ZH_Sozialversicherungsgericht",
+    "relevance": 0,
+    "note": "different topic (hard negative)"
+  },
+  {
+    "query_id": "Q35",
+    "doc_id": "ZH_OG_001_RT210117_2021-12-16.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q35",
+    "doc_id": "ZH_OG_001_RT250204_2025-11-07.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q35",
+    "doc_id": "ZH_OG_001_RT220083_2022-05-06.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q35",
+    "doc_id": "ZH_OG_001_RT120126_2012-11-28.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q35",
+    "doc_id": "ZH_OG_001_RT190016_2019-05-21.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q35",
+    "doc_id": "ZH_OG_001_RT110178_2011-12-01.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q35",
+    "doc_id": "ZH_OG_001_PS260083_2026-03-19.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q35",
+    "doc_id": "ZH_OG_001_PS180086_2018-06-15.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q36",
+    "doc_id": "ZH_OG_001_PS260083_2026-03-19.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q36",
+    "doc_id": "ZH_OG_001_PS180086_2018-06-15.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q36",
+    "doc_id": "ZH_OG_001_PS170083_2017-04-06.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q36",
+    "doc_id": "ZH_OG_001_PS130185_2013-11-07.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q36",
+    "doc_id": "ZH_OG_001_PS230159_2023-09-14.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q36",
+    "doc_id": "ZH_OG_001_PS120129_2012-07-24.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q36",
+    "doc_id": "ZH_OG_001_RT210117_2021-12-16.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q36",
+    "doc_id": "ZH_OG_001_RT250204_2025-11-07.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q37",
+    "doc_id": "ZH_OG_001_PS110211_2011-12-20.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q37",
+    "doc_id": "ZH_OG_001_PS240010_2024-03-12.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q37",
+    "doc_id": "ZH_OG_001_PS120083_2012-05-31.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q37",
+    "doc_id": "ZH_OG_001_PS130072_2013-05-28.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q37",
+    "doc_id": "ZH_OG_001_PS200186_2020-11-09.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q37",
+    "doc_id": "ZH_OG_001_PS260016_2026-02-05.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q37",
+    "doc_id": "ZH_OG_001_RV230009_2023-08-21.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q37",
+    "doc_id": "ZH_OG_001_RV190002_2019-07-09.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q38",
+    "doc_id": "ZH_OG_001_RV230009_2023-08-21.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q38",
+    "doc_id": "ZH_OG_001_RV190002_2019-07-09.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q38",
+    "doc_id": "ZH_OG_001_RV140003_2014-02-26.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q38",
+    "doc_id": "ZH_OG_001_RV220016_2023-03-16.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q38",
+    "doc_id": "ZH_OG_001_PF160022_2016-09-26.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q38",
+    "doc_id": "ZH_OG_001_RV240006_2024-05-13.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q38",
+    "doc_id": "ZH_OG_001_PS110211_2011-12-20.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q38",
+    "doc_id": "ZH_OG_001_PS240010_2024-03-12.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q39",
+    "doc_id": "ZH_OG_999_AH250057-L_2025-06-17.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q39",
+    "doc_id": "ZH_OG_999_FV190053-L_2019-12-18.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q39",
+    "doc_id": "ZH_HG_001_HG240016_2026-03-09.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q39",
+    "doc_id": "ZH_HG_001_HG170230_2018-06-29.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q39",
+    "doc_id": "ZH_OG_001_NP250004_2025-07-21.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q39",
+    "doc_id": "ZH_OG_001_NP240015_2024-08-20.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q39",
+    "doc_id": "ZH_OG_001_RS250020_2025-12-12.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q39",
+    "doc_id": "ZH_OG_001_LE220029_2023-09-20.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q40",
+    "doc_id": "ZH_OG_001_RS250020_2025-12-12.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q40",
+    "doc_id": "ZH_OG_001_LE220029_2023-09-20.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q40",
+    "doc_id": "ZH_OG_001_LE240029_2025-03-25.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q40",
+    "doc_id": "ZH_OG_001_LE150031_2015-07-28.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q40",
+    "doc_id": "ZH_OG_001_LE230031_2024-05-23.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q40",
+    "doc_id": "ZH_OG_001_LE210059_2022-05-05.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q40",
+    "doc_id": "ZH_OG_999_FE250172_2026-02-13.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q40",
+    "doc_id": "ZH_OG_001_LC200032_2021-03-25.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q41",
+    "doc_id": "ZH_OG_999_FE250172_2026-02-13.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q41",
+    "doc_id": "ZH_OG_001_LC200032_2021-03-25.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q41",
+    "doc_id": "ZH_OG_001_LC110011_2011-07-14.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q41",
+    "doc_id": "ZH_OG_001_PC150053_2015-12-08.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q41",
+    "doc_id": "ZH_OG_001_LC160022_2016-06-14.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q41",
+    "doc_id": "ZH_OG_001_LC100086_2011-07-27.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q41",
+    "doc_id": "ZH_OG_001_LZ200037_2022-03-25.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q41",
+    "doc_id": "ZH_OG_001_LZ210006_2023-05-16.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q42",
+    "doc_id": "ZH_OG_001_LZ200037_2022-03-25.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q42",
+    "doc_id": "ZH_OG_001_LZ210006_2023-05-16.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q42",
+    "doc_id": "ZH_OG_001_LZ180003_2018-02-07.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q42",
+    "doc_id": "ZH_OG_001_LZ220018_2022-08-30.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q42",
+    "doc_id": "ZH_OG_001_LZ200018_2020-11-16.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q42",
+    "doc_id": "ZH_OG_001_LZ190026_2020-06-04.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q42",
+    "doc_id": "ZH_OG_001_LC110008_2012-03-19.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q42",
+    "doc_id": "ZH_OG_999_FP240039_2026-04-02.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q43",
+    "doc_id": "ZH_OG_001_LC110008_2012-03-19.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q43",
+    "doc_id": "ZH_OG_999_FP240039_2026-04-02.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q43",
+    "doc_id": "ZH_OG_001_LC160051_2017-05-31.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q43",
+    "doc_id": "ZH_OG_001_LC180037_2019-03-25.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q43",
+    "doc_id": "ZH_OG_001_LC230048_2024-10-02.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q43",
+    "doc_id": "ZH_OG_001_LC140024_2015-04-20.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q43",
+    "doc_id": "ZH_OG_001_LY160002_2016-04-28.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q43",
+    "doc_id": "ZH_OG_001_LY180002_2018-02-13.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q44",
+    "doc_id": "ZH_OG_001_LY160002_2016-04-28.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q44",
+    "doc_id": "ZH_OG_001_LY180002_2018-02-13.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q44",
+    "doc_id": "ZH_OG_001_LY230021_2023-08-18.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q44",
+    "doc_id": "ZH_OG_001_LY230023_2023-11-16.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q44",
+    "doc_id": "ZH_OG_001_LY180047_2018-11-01.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q44",
+    "doc_id": "ZH_OG_001_LY190057_2020-01-21.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q44",
+    "doc_id": "ZH_OG_002_UE150032_2015-04-27.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q44",
+    "doc_id": "ZH_OG_002_UE220275_2022-12-06.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q45",
+    "doc_id": "ZH_OG_002_UE150032_2015-04-27.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q45",
+    "doc_id": "ZH_OG_002_UE220275_2022-12-06.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q45",
+    "doc_id": "ZH_OG_002_UE130252_2013-11-08.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q45",
+    "doc_id": "ZH_OG_002_UE240026_2025-03-25.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q45",
+    "doc_id": "ZH_OG_002_UE230265_2024-05-06.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q45",
+    "doc_id": "ZH_OG_002_UE230194_2024-02-19.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q45",
+    "doc_id": "ZH_OG_002_UE200432_2022-04-04.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q45",
+    "doc_id": "ZH_OG_002_UE210138_2022-01-28.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q46",
+    "doc_id": "ZH_OG_002_UE200432_2022-04-04.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q46",
+    "doc_id": "ZH_OG_002_UE210138_2022-01-28.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q46",
+    "doc_id": "ZH_OG_002_UE150357_2016-05-04.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q46",
+    "doc_id": "ZH_OG_002_UE240073_2024-10-02.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q46",
+    "doc_id": "ZH_OG_002_UE170155_2017-11-07.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q46",
+    "doc_id": "ZH_OG_002_UE230318_2024-01-24.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q46",
+    "doc_id": "ZH_OG_002_UE150032_2015-04-27.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q46",
+    "doc_id": "ZH_OG_002_UE220275_2022-12-06.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q47",
+    "doc_id": "ZH_HG_001_HE190045_2019-03-19.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q47",
+    "doc_id": "ZH_HG_001_HE190179_2019-07-11.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q47",
+    "doc_id": "ZH_HG_001_HE120386_2013-01-04.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q47",
+    "doc_id": "ZH_HG_001_HE170104_2017-05-29.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q47",
+    "doc_id": "ZH_HG_001_HE140072_2014-06-12.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q47",
+    "doc_id": "ZH_HG_001_HE200217_2020-07-24.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q47",
+    "doc_id": "ZH_HG_001_HE240145_2024-11-26.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q47",
+    "doc_id": "ZH_HG_001_HE200004_2020-01-08.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q48",
+    "doc_id": "ZH_OG_004_VO140116_2014-09-03.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q48",
+    "doc_id": "ZH_OG_004_VO140026_2014-02-27.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q48",
+    "doc_id": "ZH_OG_004_VO110083_2011-08-08.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q48",
+    "doc_id": "ZH_OG_004_VO140165_2014-11-28.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q48",
+    "doc_id": "ZH_OG_004_VO140110_2014-08-12.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q48",
+    "doc_id": "ZH_OG_004_VO120170_2012-12-04.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q48",
+    "doc_id": "ZH_HG_001_HE190332_2019-10-16.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q48",
+    "doc_id": "ZH_HG_001_HE180432_2018-11-14.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q49",
+    "doc_id": "ZH_OG_001_LF210040_2021-07-12.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q49",
+    "doc_id": "ZH_OG_001_LF180053_2019-01-21.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q49",
+    "doc_id": "ZH_OG_001_PF120004_2012-04-19.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q49",
+    "doc_id": "ZH_OG_001_LF230030_2023-05-26.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q49",
+    "doc_id": "ZH_OG_001_LF250066_2025-08-06.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q49",
+    "doc_id": "ZH_OG_001_LF150066_2015-12-08.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q49",
+    "doc_id": "ZH_OG_006_AA090153_2009-12-03.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q49",
+    "doc_id": "ZH_OG_006_AA080100_2008-06-26.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q50",
+    "doc_id": "ZH_HG_001_HE240145_2024-11-26.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q50",
+    "doc_id": "ZH_HG_001_HE200004_2020-01-08.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q50",
+    "doc_id": "ZH_HG_001_HE170325_2017-10-23.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q50",
+    "doc_id": "ZH_HG_001_HE120315_2012-09-17.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q50",
+    "doc_id": "ZH_HG_001_HE150292_2015-08-04.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q50",
+    "doc_id": "ZH_HG_001_HE240104_2024-07-25.json",
+    "court": "ZH_Obergericht",
+    "relevance": 2,
+    "note": "topic-tag match only"
+  },
+  {
+    "query_id": "Q50",
+    "doc_id": "ZH_OG_001_LA170037_2017-12-01.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  },
+  {
+    "query_id": "Q50",
+    "doc_id": "ZH_OG_001_LA150024_2015-10-19.json",
+    "court": "ZH_Obergericht",
+    "relevance": 0,
+    "note": "different topic tag (hard negative)"
+  }
+]

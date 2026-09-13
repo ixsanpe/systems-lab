@@ -1,0 +1,42 @@
+# Default recipe
+default: help
+
+# Show available commands
+help:
+    @just --list
+
+# Install all dependencies
+install:
+    uv sync --frozen --dev
+
+# Install dependencies for CI (CPU-only)
+install-ci:
+    uv sync --frozen --extra cpu --dev
+
+# Run linter and formatter checks
+lint:
+    uv run ruff check nsearch tests
+    uv run ruff format --check nsearch tests
+
+# Auto-fix linting and formatting issues
+lint-fix:
+    uv run ruff check --fix nsearch tests
+    uv run ruff format nsearch tests
+
+# Run tests
+test:
+    CUDA_VISIBLE_DEVICES="" uv run pytest
+
+# Run tests with coverage report
+test-cov:
+    CUDA_VISIBLE_DEVICES="" uv run pytest --cov=nsearch --cov-report=term-missing
+
+# Run all checks before committing (lint + tests)
+check-commit: lint test
+
+# Interactive conventional commit (formats, re-stages, checks, then commits)
+commit:
+    just lint-fix
+    git add -A -- .
+    just check-commit
+    uv run cz commit

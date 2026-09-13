@@ -1,0 +1,3 @@
+name: "Default one-shot crawl data"
+areas:
+  ZH: ["Obergericht", "Steuerrekurs", "Verwaltungsgericht", "Sozialversicherungsgericht"]
