@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.DS_Store
+
+# 02-neural-search
+02-neural-search/data/raw/
+02-neural-search/data/extracted/
+
+# 03-physical-ai-av
+03-physical-ai-av/data/
+03-physical-ai-av/checkpoints/
+03-physical-ai-av/logs/
