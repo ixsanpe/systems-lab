@@ -1,0 +1,18 @@
+[project]
+name = "physical-ai-av"
+version = "0.1.0"
+description = "Distributed training and sharded data loading for multi-sensor AV data"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.14.0",
+    "datasets>=5.0.0",
+    "huggingface-hub>=1.33.0",
+    "pyarrow>=25.0.0",
+    "pandas>=3.0.0",
+    "matplotlib>=3.11.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
