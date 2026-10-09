@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.DS_Store
+
+# Data is downloaded/generated, never committed (FLORES+ must stay out of crawls)
+/data/
+# Model weights and adapters
+/models/
+/adapters/
+*.safetensors
+*.gguf

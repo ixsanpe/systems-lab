@@ -1,0 +1,47 @@
+# Default recipe
+default: help
+
+# Show available commands
+help:
+    @just --list
+
+# Install all dependencies
+install:
+    uv sync --dev
+
+# Download PILAR (Aragonese) + FLORES+ dev/devtest into data/raw/
+download *args:
+    uv run python -m argmt.data.download {{args}}
+
+# Build the Apertium spa<->arg Docker image (macOS route)
+apertium-build:
+    docker build -t argmt-apertium -f docker/apertium.Dockerfile .
+
+# Smoke-test Apertium in both directions (native install if present, else Docker)
+apertium-check:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if command -v apertium >/dev/null && apertium -l 2>/dev/null | grep -q spa-arg; then
+        run() { apertium -u "$1"; }
+    else
+        run() { docker run -i --rm argmt-apertium "$1"; }
+    fi
+    echo "Actualmente tenemos ratones de cuatro meses de edad." | run spa-arg
+    echo "Agora tenemos ratos de cuatre meses d'edat." | run arg-spa
+
+# Run linter and formatter checks
+lint:
+    uv run ruff check argmt tests
+    uv run ruff format --check argmt tests
+
+# Auto-fix linting and formatting issues
+lint-fix:
+    uv run ruff check --fix argmt tests
+    uv run ruff format argmt tests
+
+# Run tests
+test:
+    uv run pytest
+
+# Run all checks before committing (lint + tests)
+check-commit: lint test

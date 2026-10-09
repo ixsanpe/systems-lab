@@ -13,3 +13,8 @@ __pycache__/
 03-physical-ai-av/data/
 03-physical-ai-av/checkpoints/
 03-physical-ai-av/logs/
+
+# 04-aragonese-mt
+04-aragonese-mt/data/
+04-aragonese-mt/models/
+04-aragonese-mt/adapters/

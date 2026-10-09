@@ -1,0 +1,35 @@
+[project]
+name = "argmt"
+version = "0.1.0"
+description = "Benchmarking and LoRA fine-tuning local LLMs for Spanish→Aragonese translation on Apple Silicon"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyzipper>=0.3.6",
+]
+
+[project.scripts]
+argmt-download = "argmt.data.download:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.7",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["argmt"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -7,3 +7,6 @@ Implement a miniature neural search engine over Swiss legal ruling documents.
 ## 03. Distributed Training in Physical AI AV
 Implement toy model for  DDP, FSDP applied to Physical AI Autonomous Vehicles data.
 - The dataset is from: [hf/nvidia](https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles)
+## 04. Aragonese MT
+Benchmark and LoRA fine-tune local LLMs (MLX, Apple Silicon) for Spanish→Aragonese translation.
+- Data: [PILAR](https://github.com/transducens/PILAR) (Aragonese corpora + FLORES+), [Apertium spa-arg](https://github.com/apertium/apertium-spa-arg)
