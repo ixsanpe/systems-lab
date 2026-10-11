@@ -1,0 +1,62 @@
+# Kafka CLI tools live inside the broker image
+kafka := "docker exec -it kafka-1 /opt/kafka/bin"
+bootstrap := "kafka-1:19092"
+
+default: help
+
+help:
+    @just --list
+
+# Start the 3-broker KRaft cluster
+up:
+    docker compose up -d
+    @echo "bootstrap: localhost:29092,localhost:39092,localhost:49092"
+
+# Start the cluster + web UI on http://localhost:8080
+ui:
+    docker compose --profile ui up -d
+
+# Stop the cluster (keeps nothing: containers are recreated on next `up`)
+down:
+    docker compose --profile ui down -v
+
+# Kill one broker to simulate a failure, e.g. `just kill 3`
+kill n:
+    docker stop kafka-{{n}}
+
+# Bring a killed broker back, e.g. `just revive 3`
+revive n:
+    docker start kafka-{{n}}
+
+# Create all topics used by the exercises
+topics:
+    uv run python -m examples.admin
+
+# List topics
+ls:
+    {{kafka}}/kafka-topics.sh --bootstrap-server {{bootstrap}} --list
+
+# Describe a topic: partitions, leader, replicas, ISR. e.g. `just describe flight-status`
+describe topic:
+    {{kafka}}/kafka-topics.sh --bootstrap-server {{bootstrap}} --describe --topic {{topic}}
+
+# Describe a consumer group: lag per partition. e.g. `just group gate-displays`
+group name:
+    {{kafka}}/kafka-consumer-groups.sh --bootstrap-server {{bootstrap}} --describe --group {{name}}
+
+# Tail a topic from the beginning with keys, partitions and headers
+tail topic:
+    {{kafka}}/kafka-console-consumer.sh --bootstrap-server {{bootstrap}} --topic {{topic}} --from-beginning \
+      --property print.key=true --property print.partition=true --property print.offset=true --property print.headers=true
+
+# Show the raw log segment files backing a topic on broker 1
+files topic:
+    docker exec kafka-1 sh -c 'ls -l /var/lib/kafka/data/ | grep {{topic}}; for d in /var/lib/kafka/data/{{topic}}-*; do echo "== $d"; ls -l $d; done'
+
+# Decode a partition's log segment, e.g. `just dump flight-status 0`
+dump topic partition:
+    docker exec kafka-1 sh -c '/opt/kafka/bin/kafka-dump-log.sh --print-data-log --files /var/lib/kafka/data/{{topic}}-{{partition}}/*.log' | head -50
+
+# Run the unit tests for the offline exercises
+test:
+    uv run pytest -q
