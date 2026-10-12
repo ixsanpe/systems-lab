@@ -21,6 +21,12 @@ TODO:
    partition. Add producer.flush() + a short sleep every few messages to force new batches.
 4. Bonus: with keys, can order still break? Look up `max.in.flight.requests.per.connection`,
    retries, and why `enable.idempotence=true` fixes it.
+
+   Answer: yes. With up to 5 batches in flight, batch 1 can fail and be retried AFTER
+   batch 2 was written -> reordered; a lost ack + retry -> duplicate. Idempotence adds a
+   producer id + per-partition sequence number, so the broker drops duplicates and rejects
+   gaps (producer resends in order). Java enables it by default; librdkafka (Python) does
+   NOT, so set it. It only covers producer retries; an app-level resend needs transactions (ex06).
 """
 
 import sys
