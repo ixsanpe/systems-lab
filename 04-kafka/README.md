@@ -1,7 +1,7 @@
 # 04 – Kafka through airline operations
 
 Hands-on exercises for the Kafka course notes, using flight status, baggage and booking events.
-See `PLAN.md` for the step-by-step exercises and `NOTES.md` for references.
+See `PLAN.md` for the step-by-step exercises, `IN_PRACTICE.md` for how this looks in a real airline, and `NOTES.md` for references.
 
 ## Setup
 Requires Docker, [uv](https://docs.astral.sh/uv/) and [just](https://just.systems/).
