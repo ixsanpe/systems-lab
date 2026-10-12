@@ -24,16 +24,73 @@ TODO:
 """
 
 import sys
+import time
+import uuid
+
+from confluent_kafka import Consumer, KafkaException, Producer
+
+from airline.config import consumer_config, producer_config
+from airline.events import FlightStatusEvent, flight_lifecycles
 
 TOPIC = "flight-status"
 
 
 def produce(keyed: bool) -> None:
-    raise NotImplementedError
+    producer = Producer(producer_config(partitioner="murmur2_random"))
+    for i, ev in enumerate(flight_lifecycles(200)):
+        producer.produce(
+            TOPIC,
+            key=ev.flight_id.encode() if keyed else None,
+            value=ev.to_json(),
+        )
+        if i % 20 == 0:
+            # Without a key the sticky partitioner fills one batch per partition.
+            # Sending the batch now makes the next events go to another partition.
+            producer.flush()
+            time.sleep(0.05)
+    producer.flush(10)
+    print(f"produced {i + 1} events, keyed={keyed}")
 
 
 def check_order() -> None:
-    raise NotImplementedError
+    # New group id each run: no committed offsets, so auto.offset.reset=earliest
+    # reads the topic from the beginning.
+    consumer = Consumer(consumer_config(f"order-check-{uuid.uuid4()}"))
+    consumer.subscribe([TOPIC])
+
+    last_seq: dict[str, tuple[int, int]] = {}  # flight_id -> (highest seq, its partition)
+    partitions_per_flight: dict[str, set[int]] = {}
+    violations = total = idle = 0
+
+    while idle < 5:  # stop after ~5 empty seconds
+        msg = consumer.poll(1.0)
+        if msg is None:
+            idle += 1
+            continue
+        if msg.error():
+            raise KafkaException(msg.error())
+        idle = 0
+        total += 1
+
+        ev = FlightStatusEvent.from_json(msg.value())
+        partitions_per_flight.setdefault(ev.flight_id, set()).add(msg.partition())
+        if ev.flight_id in last_seq and ev.seq < last_seq[ev.flight_id][0]:
+            violations += 1
+            prev_seq, prev_partition = last_seq[ev.flight_id]
+            if violations <= 10:
+                print(
+                    f"OUT OF ORDER {ev.flight_id}: {ev.status} (seq {ev.seq}, p{msg.partition()}) "
+                    f"arrived after seq {prev_seq} (p{prev_partition})"
+                )
+        else:
+            last_seq[ev.flight_id] = (ev.seq, msg.partition())
+
+    consumer.close()
+    spread = sum(len(p) > 1 for p in partitions_per_flight.values())
+    print(
+        f"read {total} events for {len(last_seq)} flights: {violations} out of order, "
+        f"{spread} flights spread over more than one partition"
+    )
 
 
 if __name__ == "__main__":
