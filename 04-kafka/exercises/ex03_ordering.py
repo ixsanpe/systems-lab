@@ -6,7 +6,7 @@ decides what is ordered relative to what.
 
 Each FlightStatusEvent carries `seq` (0, 1, 2, ... per flight).
 
-TODO:
+Implemented below (read the code), then run the experiments:
 1. `produce(keyed)`: send flight_lifecycles(200) to "flight-status".
    keyed=True  -> key = flight_id
    keyed=False -> key = None (records spread over partitions)

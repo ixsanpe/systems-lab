@@ -9,7 +9,7 @@ delete.retention.ms).
 Topic config is in airline/config.py (tiny segment.ms / dirty ratio so you can
 watch compaction within a minute on the lab cluster).
 
-TODO:
+Implemented below (read the code), then run the experiments:
 1. `publish(rounds)`: for 50 flights, send `rounds` status updates each to
    "flight-latest" (key=flight_id). Then send tombstones (value=None) for 5
    CANCELLED flights.
@@ -31,16 +31,68 @@ TODO:
 """
 
 import argparse
+import json
+import uuid
+
+from confluent_kafka import Consumer, KafkaException, Producer
+
+from airline.config import consumer_config, producer_config
+from airline.events import LIFECYCLE, make_flights
 
 TOPIC = "flight-latest"
+N_FLIGHTS = 50
+N_CANCELLED = 5
 
 
 def publish(rounds: int) -> None:
-    raise NotImplementedError
+    producer = Producer(producer_config())
+    flights = make_flights(N_FLIGHTS)
+    for r in range(rounds):
+        for flight_id, origin, dest in flights:
+            status = {
+                "flight_id": flight_id,
+                "origin": origin,
+                "destination": dest,
+                "status": LIFECYCLE[r % len(LIFECYCLE)],
+                "update": r,
+            }
+            producer.produce(TOPIC, key=flight_id.encode(), value=json.dumps(status).encode())
+        producer.poll(0)
+    # Tombstones: value=None deletes the key once compaction runs.
+    for flight_id, _, _ in flights[:N_CANCELLED]:
+        producer.produce(TOPIC, key=flight_id.encode(), value=None)
+    producer.flush(10)
+    print(f"published {rounds * N_FLIGHTS} updates + {N_CANCELLED} tombstones")
 
 
 def board() -> None:
-    raise NotImplementedError
+    consumer = Consumer(consumer_config(f"board-{uuid.uuid4()}"))
+    consumer.subscribe([TOPIC])
+    departures: dict[str, dict] = {}
+    read = tombstones = idle = 0
+    while idle < 5:
+        msg = consumer.poll(1.0)
+        if msg is None:
+            idle += 1
+            continue
+        if msg.error():
+            raise KafkaException(msg.error())
+        idle = 0
+        read += 1
+        key = msg.key().decode()
+        if msg.value() is None:
+            tombstones += 1
+            departures.pop(key, None)
+        else:
+            departures[key] = json.loads(msg.value())
+    consumer.close()
+    print(
+        f"messages read: {read} (tombstones: {tombstones}), flights on the board: {len(departures)}"
+    )
+    for flight in list(departures.values())[:3]:
+        print(
+            f"  {flight['flight_id']} {flight['origin']}->{flight['destination']} {flight['status']}"
+        )
 
 
 if __name__ == "__main__":

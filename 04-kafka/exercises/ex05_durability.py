@@ -3,7 +3,7 @@
 Topic `bookings`: replication factor 3, min.insync.replicas=2 (cluster default,
 see docker-compose.yml). A lost booking = a passenger who paid and has no seat.
 
-TODO:
+Implemented below (read the code), then run the experiments:
 1. `produce(acks, n, rate)`: send `n` bookings(…) to "bookings" keyed by PNR at
    ~`rate` msg/s with the given acks (0, 1, all) and enable.idempotence=false.
    Count successful deliveries vs errors in the delivery callback and print
@@ -27,16 +27,64 @@ TODO:
 """
 
 import argparse
+import time
+from collections import Counter
+
+from confluent_kafka import Producer
+
+from airline.config import producer_config
+from airline.events import bookings
+
+TOPIC = "bookings"
 
 
-def produce(acks: str, n: int, rate: float) -> None:
-    raise NotImplementedError
+def produce(acks: str, n: int, rate: float, timeout_ms: int = 8000) -> None:
+    producer = Producer(
+        producer_config(
+            **{
+                "acks": acks,
+                "enable.idempotence": "false",
+                # Give up on a message after this long; low so failures show up quickly.
+                "message.timeout.ms": str(timeout_ms),
+                "linger.ms": "5",
+            }
+        )
+    )
+    results: Counter = Counter()
+
+    def on_delivery(err, msg):
+        results["OK" if err is None else err.name()] += 1
+
+    start = time.time()
+    for i, booking in enumerate(bookings(n)):
+        while True:
+            try:
+                producer.produce(
+                    TOPIC,
+                    key=booking.pnr.encode(),
+                    value=booking.to_json(),
+                    on_delivery=on_delivery,
+                )
+                break
+            except BufferError:  # local queue full: let it drain
+                producer.poll(0.1)
+        producer.poll(0)
+        if rate > 0:
+            time.sleep(max(0.0, start + (i + 1) / rate - time.time()))
+        if rate > 0 and (i + 1) % 500 == 0:
+            print(f"  sent {i + 1}/{n}, delivered so far: {dict(results)}")
+
+    producer.flush(timeout_ms / 1000 + 5)
+    elapsed = time.time() - start
+    print(
+        f"acks={acks}: {n} bookings in {elapsed:.2f}s ({n / elapsed:,.0f} msg/s) -> {dict(results)}"
+    )
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--acks", choices=["0", "1", "all"], default="all")
     ap.add_argument("-n", type=int, default=2000)
-    ap.add_argument("--rate", type=float, default=100)
+    ap.add_argument("--rate", type=float, default=100, help="msg/s, 0 = as fast as possible")
     a = ap.parse_args()
     produce(a.acks, a.n, a.rate)

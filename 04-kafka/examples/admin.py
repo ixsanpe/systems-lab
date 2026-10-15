@@ -17,7 +17,7 @@ def main(recreate: bool = False) -> None:
 
     if recreate:
         existing = [t for t in admin.list_topics(timeout=10).topics if t in TOPICS]
-        for topic, fut in admin.delete_topics(existing).items():
+        for topic, fut in admin.delete_topics(existing).items() if existing else []:
             fut.result()
             print(f"deleted {topic}")
         time.sleep(2)  # deletion is async on the brokers
