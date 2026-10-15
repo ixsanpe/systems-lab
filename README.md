@@ -7,3 +7,5 @@ Implement a miniature neural search engine over Swiss legal ruling documents.
 ## 03. Distributed Training in Physical AI AV
 Implement toy model for  DDP, FSDP applied to Physical AI Autonomous Vehicles data.
 - The dataset is from: [hf/nvidia](https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles)
+## 04. Kafka
+Learn Kafka (topics, partitioning, consumer groups, delivery guarantees, compaction) with airline operations events: flight status, baggage scans and bookings.
