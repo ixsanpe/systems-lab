@@ -128,7 +128,6 @@ class FrameStore:
 async def record(args: argparse.Namespace) -> Path:
     email, country = email_and_country()
     out = OUT_DIR / f"{datetime.now():%Y%m%d-%H%M%S}"
-    store = FrameStore(out)
     rng = random.Random(args.seed)
     policy = RandomPolicy(
         rng,
@@ -170,7 +169,15 @@ async def record(args: argparse.Namespace) -> Path:
                 )
             else:
                 print("Pose invalid: asking the robot to relocalize (it spins in place)...")
-                await device.execute_command(SetRelocationState())
+                resp = await device.execute_command(SetRelocationState())
+                if resp.get("resp", {}).get("body", resp).get("code") != 0:
+                    # T90 fw 1.103.0 answers 20003 "rcp not support".
+                    raise SystemExit(
+                        "This robot refuses the relocate command. Get it localized another "
+                        "way: send it back to the dock from the app (it finds itself on the "
+                        "way / on the dock), then drive it off with the app's arrows and "
+                        "run this again."
+                    )
                 for _ in range(45):
                     await asyncio.sleep(2)
                     pose, _ = await poll_pose()
@@ -180,6 +187,7 @@ async def record(args: argparse.Namespace) -> Path:
                 else:
                     raise SystemExit("Still no valid pose after 90 s; giving up.")
 
+        store = FrameStore(out)  # only create the episode dir once we will record
         session_info = await async_start_watch(
             http,
             rest_config=create_rest_config(http, device_id=_device_id(), alpha_2_country=country),

@@ -12,6 +12,7 @@ Reality check that shapes the plan: a weekend of vacuum driving is a few hours o
   - If no: let it clean normally, log its map position + heading over time, and derive actions as pose deltas between frames.
 - Fallback for video: phone strapped on top.
 - Measure latency between "command sent" and "frame shows motion" early — it decides whether actions need a time shift.
+- [ ] PENDING — relocalization: after the robot is carried by hand, `getPos` reports `invalid: 1` and the T90 refuses `setRelocationState` (20003 "rcp not support"); returning to the dock fixed it. Run `probe.py --listen` (and the camera) while the robot relocalizes (return-to-dock from the app, or the app's relocate if it has one) to capture which commands/events happen, so `record.py` can trigger relocalization itself instead of needing the dock.
 
 ### Step 1: Episode format + dataset
 - Resample everything to a fixed rate (start with 2–4 Hz; the vacuum is slow) and save episodes as `{frames[T,H,W,3], actions[T,A], pose[T,3], t[T]}`.
