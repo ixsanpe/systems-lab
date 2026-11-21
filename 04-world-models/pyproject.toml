@@ -1,0 +1,15 @@
+[project]
+name = "world-models"
+version = "0.1.0"
+description = "Action-conditioned world model on episodes from a robot vacuum"
+# deebot-client>=18 (which has DeviceVerificationRequiredError) needs Python 3.14.
+# On older Pythons pip silently installs 17.x and you get the import error.
+requires-python = ">=3.14"
+dependencies = [
+    "deebot-client>=18.5.1,<21",
+    "aiohttp>=3.11",
+    "aiortc==1.15.0",
+    "websockets==15.0.1",
+    "pillow>=13.0.0",
+    "numpy>=2.5.5",
+]
