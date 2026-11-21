@@ -5,3 +5,4 @@ episodes/
 *.npz
 *.h5
 checkpoints/
+.secrets/
