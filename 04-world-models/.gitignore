@@ -1,0 +1,7 @@
+# Recordings come from a camera inside the home: never commit them.
+data/
+episodes/
+*.mp4
+*.npz
+*.h5
+checkpoints/
