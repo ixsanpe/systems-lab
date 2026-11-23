@@ -44,7 +44,11 @@ Reality check that shapes the plan: a weekend of vacuum driving is a few hours o
   - Picks the true action: clean 79% (was 47%), drive 82% (was 58%) — above the Step 2 pixel classifier (75% / 68%). Stop is still weak (28%; inferred clean stops are noisy).
   - Costs some prediction error, still better than copy-last everywhere: clean 0.86 / 0.84 / 0.86 / 0.91, drive 0.85 / 0.87 / 0.91 / 0.90. Weight 2 was too strong (worse than copy-last beyond 1 s).
   - Figure: `uv run python -m wm.plot_results` -> `figures/step3_results.png`.
-- [ ] Still open: val error was still falling at epoch 25 (try more epochs), the full 10x18 grid (`--pool 1`), better stop labels.
+- [ ] PENDING — improve the world model before Step 4 (planning needs both good predictions and actions that lead to different futures):
+  - Stop is recognised only 28% of the time (half of real stops look like forward). Check the inferred clean "stop" labels in the viewer (many are probably slow turns or tiny moves between pose updates), tighten `label_from_motion` or drop doubtful stops, and add stops to driven episodes.
+  - Win back the prediction accuracy the action loss cost (0.76–0.80 → 0.84–0.86 vs copy-last at 0.5–2 s): validation error was still falling at epoch 25, so train longer (40–60 epochs); try weights between 0.2 and 0.5.
+  - Try the full 10x18 grid (`--pool 1`, ~7x slower): forward over 0.5 s is a small change that 2x2 pooling may blur.
+  - More driven data (see the Step 1 small-space item): the driven test set is only 109 steps, so driven numbers swing by ±5 points.
 
 ### Step 4: Plan with it
 - Goal-reaching in latent space: given current frame and a goal frame (e.g. "facing the couch"), use CEM / random shooting over action sequences, roll out with the world model, pick the sequence minimizing distance to the goal embedding.
