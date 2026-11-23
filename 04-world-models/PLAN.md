@@ -40,7 +40,11 @@ Reality check that shapes the plan: a weekend of vacuum driving is a few hours o
 - First version done (`wm/encode.py`, `wm/predictor.py`): DINOv2 ViT-S/14 patches cached (2.6 ms/frame), 2x2-pooled to a 5x9 grid, 3-step context, 3.4 M-param transformer, epoch picked on a validation slice.
   - Test error vs copy-last at 0.5 / 1 / 2 / 4 s: clean 0.80 / 0.76 / 0.78 / 0.88, drive 0.86 / 0.88 / 0.86 / 0.89. Turns improve most (~0.72), forward/stop least (~0.9).
   - Action sensitivity: turnLeft vs turnRight predictions now differ, but stop vs forward barely (clean pick-the-true-action 47%, stop recall 18%).
-- [ ] NEXT — make the model rely on the action: drop history context during training, stronger action conditioning, compare the full 10x18 grid (`--pool 1`).
+- Second version (default now): backward dropped from the actions the planner may pick (~1% of data; the first model matched 39% of real stops to it) + an action loss (weight 0.5): for half of each batch, predict under all 4 actions and cross-entropy on which prediction is closest to reality.
+  - Picks the true action: clean 79% (was 47%), drive 82% (was 58%) — above the Step 2 pixel classifier (75% / 68%). Stop is still weak (28%; inferred clean stops are noisy).
+  - Costs some prediction error, still better than copy-last everywhere: clean 0.86 / 0.84 / 0.86 / 0.91, drive 0.85 / 0.87 / 0.91 / 0.90. Weight 2 was too strong (worse than copy-last beyond 1 s).
+  - Figure: `uv run python -m wm.plot_results` -> `figures/step3_results.png`.
+- [ ] Still open: val error was still falling at epoch 25 (try more epochs), the full 10x18 grid (`--pool 1`), better stop labels.
 
 ### Step 4: Plan with it
 - Goal-reaching in latent space: given current frame and a goal frame (e.g. "facing the couch"), use CEM / random shooting over action sequences, roll out with the world model, pick the sequence minimizing distance to the goal embedding.

@@ -20,11 +20,20 @@ Evaluation on the test split (same time-based split as Step 2), per mode:
   predictions and the true actions; error = MSE of the features vs the real frame,
   next to the copy-last error (z_{i+k} = z_i). ratio < 1 = better than copy-last.
 - per action at 1 step: where it helps (turns should improve most).
-- action sensitivity: for each test step, predict z_{i+1} under every action and
-  pick the one closest to the real z_{i+1}. If the model ignored actions this is a
+- action sensitivity: for each test step, predict z_{i+1} under every candidate
+  action (stop, forward, turnLeft, turnRight; backward is ~1% of the data, too rare
+  to learn or to plan with) and pick the one closest to the real z_{i+1}. If the model ignored actions this is a
   coin flip; if it uses them it recovers the action (compare with Step 2's
   inverse-dynamics classifier: ~75% clean, ~68% drive). Planning (Step 4) relies on
   exactly this: different actions must lead to different, correct futures.
+
+Action loss (--action-loss, weight lambda): plain next-step MSE lets the model get
+most of the way by continuing the motion it sees in the history, and largely ignore
+the action (first version: stop vs forward barely told apart). So for half of each
+batch the last step is also predicted under all 4 candidate actions, the distances
+to the real next features become scores (-MSE / tau) and a cross-entropy term asks
+the true action's prediction to be the closest. It trains exactly what the planner
+will use. The epoch is still picked on the validation 1-step error.
 """
 
 from __future__ import annotations
@@ -45,7 +54,7 @@ FEATURES = ROOT / "data" / "features" / ENCODER
 SAVE = ROOT / "data" / "models" / "predictor.pt"
 CONTEXT = 3  # steps of history (1.5 s)
 HORIZONS = (1, 2, 4, 8)
-CANDIDATES = ["stop", "forward", "turnLeft", "turnRight", "backward"]
+CANDIDATES = ["stop", "forward", "turnLeft", "turnRight"]  # actions the planner may choose
 POOL = 2  # average pool x pool patches: 10 x 18 -> 5 x 9 grid, ~7x faster to train
 
 
@@ -144,6 +153,19 @@ def rollout(model: Predictor, data: Latents, g: torch.Tensor, actions: torch.Ten
     return torch.stack(preds, 1)
 
 
+def action_scores(model: Predictor, z: torch.Tensor, a: torch.Tensor, cand: torch.Tensor,
+                  tau: float) -> torch.Tensor:
+    """Score each candidate as the last action: -MSE(prediction, real z) / tau, [B, C].
+
+    z [B, CONTEXT+1, P, D] (history + real next), a [B, CONTEXT] (last one is replaced).
+    """
+    b, c = len(a), len(cand)
+    aa = a.repeat_interleave(c, 0).clone()
+    aa[:, -1] = cand.repeat(b)
+    pred = model(z[:, :-1].repeat_interleave(c, 0), aa)[:, -1].reshape(b, c, *z.shape[2:])
+    return -((pred - z[:, -1, None]) ** 2).mean(dim=(-1, -2)) / tau
+
+
 def mse(x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
     return ((x - y) ** 2).mean(dim=(-1, -2))  # per sample
 
@@ -207,14 +229,15 @@ def evaluate(model: Predictor, data: Latents) -> dict:
     for gc in chunks(g, 128):
         target = data.z[(gc + 1).to(dev)].float()
         preds = torch.stack([rollout(model, data, gc, c.expand(len(gc))[:, None])[:, 0] for c in cand], 1)
-        d = ((preds - target[:, None]) ** 2).mean(dim=(-1, -2))  # [B, 5]
+        d = ((preds - target[:, None]) ** 2).mean(dim=(-1, -2))  # [B, C]
         picks.append(cand[d.argmin(1)].cpu())
         left, right = CANDIDATES.index("turnLeft"), CANDIDATES.index("turnRight")
         spread.append(mse(preds[:, left], preds[:, right]).cpu())
     pick = torch.cat(picks)
     gap = torch.cat(spread)
+    in_cand = torch.isin(act, cand.cpu())  # steps whose true action can be picked
     for mode in sorted(set(modes)):
-        mm = torch.from_numpy(modes == mode)
+        mm = torch.from_numpy(modes == mode) & in_cand
         y, p = act[mm], pick[mm]
         acc = (p == y).float().mean().item()
         majority = torch.bincount(y).max().item() / len(y)
@@ -235,7 +258,7 @@ def evaluate(model: Predictor, data: Latents) -> dict:
     return res
 
 
-def train(epochs: int, seed: int, pool: int) -> None:
+def train(epochs: int, seed: int, pool: int, action_loss: float, tau: float) -> None:
     torch.manual_seed(seed)
     dev = device()
     train_eps, test_eps = split(load_episodes())
@@ -247,7 +270,10 @@ def train(epochs: int, seed: int, pool: int) -> None:
     model = Predictor(n_patches=tr.z.shape[1]).to(dev)
     n_params = sum(p.numel() for p in model.parameters())
     print(f"train {len(g_train)} windows, val {len(g_val)}, {tr.z.shape[1]} tokens/step, "
-          f"{n_params / 1e6:.1f} M params, {dev}")
+          f"{n_params / 1e6:.1f} M params, {dev}, action loss {action_loss} (tau {tau})")
+    cand = torch.tensor([ACTIONS.index(c) for c in CANDIDATES], device=dev)
+    to_cand = torch.full((len(ACTIONS),), -1, device=dev)
+    to_cand[cand] = torch.arange(len(cand), device=dev)
     opt = torch.optim.AdamW(model.parameters(), lr=3e-4, weight_decay=0.05)
     batch = 64
     sched = torch.optim.lr_scheduler.OneCycleLR(opt, 6e-4, total_steps=epochs * (len(g_train) // batch + 1))
@@ -260,6 +286,10 @@ def train(epochs: int, seed: int, pool: int) -> None:
         for gc in chunks(perm, batch):
             z, a = windows(tr, gc)
             loss = F.mse_loss(model(z[:, :-1], a), z[:, 1:])
+            if action_loss > 0:
+                sub = torch.nonzero(to_cand[a[:, -1]] >= 0).squeeze(1)[: batch // 2]
+                scores = action_scores(model, z[sub], a[sub], cand, tau)
+                loss = loss + action_loss * F.cross_entropy(scores, to_cand[a[sub, -1]])
             opt.zero_grad()
             loss.backward()
             nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -268,18 +298,23 @@ def train(epochs: int, seed: int, pool: int) -> None:
             total += loss.item() * len(gc)
         model.eval()
         with torch.no_grad():
-            errs, copies = [], []
+            errs, copies, hits = [], [], []
             for gc in chunks(g_val):
                 z, a = windows(va, gc)
                 errs.append(mse(model(z[:, :-1], a)[:, -1], z[:, -1]))
                 copies.append(mse(z[:, -2], z[:, -1]))
+                ok = to_cand[a[:, -1]] >= 0
+                picked = action_scores(model, z[ok], a[ok], cand, tau).argmax(1)
+                hits.append((picked == to_cand[a[ok, -1]]).float())
             ratio = (torch.cat(errs).mean() / torch.cat(copies).mean()).item()
+            val_pick = torch.cat(hits).mean().item()
         if ratio < best:
             best, best_ep = ratio, ep + 1
             best_state = {k: v.detach().clone() for k, v in model.state_dict().items()}
         if ep == 0 or (ep + 1) % 5 == 0 or ep == epochs - 1:
             print(f"  epoch {ep + 1:3d}  train loss {total / len(g_train):.4f}  "
-                  f"val 1-step ratio vs copy-last {ratio:.3f}  ({time.time() - t0:.0f} s)")
+                  f"val 1-step ratio vs copy-last {ratio:.3f}, picks true action {val_pick:.1%}  "
+                  f"({time.time() - t0:.0f} s)")
     print(f"best epoch {best_ep} (val ratio {best:.3f}); using it for the test")
     model.load_state_dict(best_state)
     SAVE.parent.mkdir(parents=True, exist_ok=True)
@@ -293,6 +328,9 @@ def main() -> None:
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--pool", type=int, default=POOL, help="1 = full 10x18 grid (slow)")
+    parser.add_argument("--action-loss", type=float, default=0.5,
+                        help="weight of the action loss (0 = plain MSE; 2 hurt prediction badly)")
+    parser.add_argument("--tau", type=float, default=0.05, help="action-loss temperature")
     parser.add_argument("--eval", action="store_true", help="only evaluate the saved model")
     args = parser.parse_args()
     if args.eval:
@@ -303,7 +341,7 @@ def main() -> None:
         model.load_state_dict(saved["state"])
         evaluate(model, te)
     else:
-        train(args.epochs, args.seed, args.pool)
+        train(args.epochs, args.seed, args.pool, args.action_loss, args.tau)
 
 
 if __name__ == "__main__":

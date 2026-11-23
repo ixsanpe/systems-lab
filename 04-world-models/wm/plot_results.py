@@ -30,6 +30,7 @@ from wm.predictor import CANDIDATES, SAVE, Latents, Predictor, device, evaluate 
 
 OUT = ROOT / "figures" / "step3_results.png"
 RESULTS = ROOT / "data" / "results" / "step3.json"
+BEFORE = ROOT / "data" / "results" / "step3_v1.json"  # first version, without the action loss
 
 SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e4e3df"
 MODE_COLOUR = {"clean": "#2a78d6", "drive": "#eb6834"}
@@ -62,8 +63,13 @@ def copy_last_line(ax: plt.Axes, x: float) -> None:
     ax.text(x, 1.01, "copy-last", color=INK2, fontsize=8.5, va="bottom")
 
 
-def panel_horizons(ax: plt.Axes, res: dict) -> None:
+def panel_horizons(ax: plt.Axes, res: dict, before: dict | None) -> None:
     style(ax, "A  World model error vs copy-last, by horizon")
+    for mode, rows in (before or {}).get("rollout", {}).items():
+        ks = sorted(rows, key=int)
+        ax.plot([int(k) / 2 for k in ks], [rows[k]["model"] / rows[k]["copy"] for k in ks],
+                color=MODE_COLOUR[mode], linewidth=1.2, linestyle=(0, (2, 2)), alpha=0.55,
+                label=f"{mode}, without action loss")
     for mode, rows in res["rollout"].items():
         ks = sorted(rows, key=int)
         x = [int(k) / 2 for k in ks]
@@ -97,7 +103,7 @@ def panel_actions(ax: plt.Axes, res: dict) -> None:
                     fontsize=8, color=INK)
             ax.text(x, 0.03, f"n={row['n']}", ha="center", va="bottom", fontsize=7, color=SURFACE,
                     rotation=90)
-    copy_last_line(ax, -0.45)
+    copy_last_line(ax, len(names) - 1.05)
     ax.set_xticks(range(len(names)), names)
     ax.set_xlim(-0.6, len(names) - 0.4)
     ax.set_ylim(0, 1.3)
@@ -165,7 +171,8 @@ def main() -> None:
     RESULTS.write_text(json.dumps(res, indent=1))
 
     fig, axes = plt.subplots(2, 2, figsize=(13, 9.5), facecolor=SURFACE)
-    panel_horizons(axes[0, 0], res)
+    before = json.loads(BEFORE.read_text()) if BEFORE.exists() else None
+    panel_horizons(axes[0, 0], res, before)
     panel_actions(axes[0, 1], res)
     panel_confusion(axes[1, 0], res)
     panel_shift(axes[1, 1])
