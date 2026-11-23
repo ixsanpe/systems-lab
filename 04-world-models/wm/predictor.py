@@ -78,19 +78,21 @@ class Latents:
 
     def __init__(self, episodes: list[Episode], dev: torch.device, pool: int = POOL) -> None:
         cache: dict[str, np.ndarray] = {}
-        z, a, keep, piece, modes = [], [], [], [], []
+        z, a, keep, piece, modes, motion = [], [], [], [], [], []
         for j, e in enumerate(episodes):
             if e.name not in cache:
                 cache[e.name] = np.load(FEATURES / e.name / "patches.npy", mmap_mode="r")
             z.append(pool_patches(cache[e.name][e.start : e.start + len(e)], pool))
             a.append(torch.from_numpy(e.actions))
             keep.append(torch.from_numpy(e.keep))
+            motion.append(torch.from_numpy(np.asarray(e.motion, np.float32)))
             piece.append(torch.full((len(e),), j))
             modes += [e.mode] * len(e)
         self.z = torch.cat(z).to(dev)  # [N, P, 384] float16 (P = 45 with pool 2)
         self.a = torch.cat(a).to(dev)  # [N] index into ACTIONS
         self.keep, self.piece = torch.cat(keep), torch.cat(piece)
         self.modes = np.array(modes)
+        self.motion = torch.cat(motion)  # [N, 3] forward mm, left mm, dtheta deg (pose-based)
 
     def starts(self, before: int, after: int) -> torch.Tensor:
         """Rows g where rows g-before .. g+after are all usable and in one piece."""

@@ -53,6 +53,14 @@ Reality check that shapes the plan: a weekend of vacuum driving is a few hours o
 ### Step 4: Plan with it
 - Goal-reaching in latent space: given current frame and a goal frame (e.g. "facing the couch"), use CEM / random shooting over action sequences, roll out with the world model, pick the sequence minimizing distance to the goal embedding.
 - First evaluate offline (does the planned first action match what the robot actually did in the logged episode?), then — if manual control works — run it closed-loop on the real vacuum at low speed.
+- Built: `wm/plan.py` (exhaustive search over all 4^H sequences of stop/forward/turnLeft/turnRight — no CEM needed with 4 actions; cost = MSE of imagined final features vs goal; optional prefix for the action already being executed) and `robot/plan_live.py` (goal photo → displace the robot → MPC at 2 Hz → score with the pose, which the model never sees). One plan takes ~25 ms.
+- Offline (test split, goal = real frame k steps later): the real action sequence ranks at the top (median) of 16 for 1 s goals and in the top 3–7% of 256 for 2 s goals; when the robot really turned ≥30°, the plan turns the same way 81% (clean) / 88% (drive) at 1 s, 57–69% at 2 s.
+- Live, 2026-11-23 (turn-away trials): 1 of 10 reached the goal — turned 80° away, it turned back to 6° and stopped by itself. 57–83° away: 1/4 (one also drove 0.8 m and over-turned). 26–44° away: 0/6, the planner picked stop immediately every time.
+- Why it fails (replayed the live frames offline):
+  - The goal is only "visible" within ~20°: the real feature distance to the goal is ~3.2 at 30° and ~3.4 at 80°, and only drops (to ~1) close to it. Beyond that no short plan looks like progress. Other costs (cosine, global mean, a goal blurred by the model the same way) did not change this.
+  - The live start is a standstill, which training barely contains (random policy changes action mid-motion, cleaning rarely stops; 0 "stop, stop, turn" moments in the driven test set). From still history the model's predictions are blurry and the blurry "stop" prediction scores best — it imagines a change of ~1.0 even under stop (real: ~0.1).
+- [ ] TODO — record the missing data: give the random policy standstill-then-move moments (stop 2–4 steps, then turn or forward), record 2–3 driven episodes, retrain, and rerun the live turn-away trials.
+- [ ] TODO — reach goals further away: a cost with a wider basin (e.g. compare horizontal layout / shift of the features, or the global CLS token), intermediate goal images along the way, or longer horizons with CEM once the model is less blurry; then turn-away trials at 45–90° and pushed-back (`--kind back`) trials.
 
 ### Future steps
 #### Pixel decoder
