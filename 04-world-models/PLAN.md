@@ -37,6 +37,10 @@ Reality check that shapes the plan: a weekend of vacuum driving is a few hours o
   - 1-step and multi-step open-loop rollout error vs. the copy-last baseline, per horizon.
   - Action sensitivity: same start, different actions -> do predicted latents actually diverge in the right direction? (A model that ignores actions can still get low loss.)
   - Nearest-neighbour decode: for a predicted latent, show the closest real frame in the dataset — cheap way to "see" predictions without a decoder.
+- First version done (`wm/encode.py`, `wm/predictor.py`): DINOv2 ViT-S/14 patches cached (2.6 ms/frame), 2x2-pooled to a 5x9 grid, 3-step context, 3.4 M-param transformer, epoch picked on a validation slice.
+  - Test error vs copy-last at 0.5 / 1 / 2 / 4 s: clean 0.80 / 0.76 / 0.78 / 0.88, drive 0.86 / 0.88 / 0.86 / 0.89. Turns improve most (~0.72), forward/stop least (~0.9).
+  - Action sensitivity: turnLeft vs turnRight predictions now differ, but stop vs forward barely (clean pick-the-true-action 47%, stop recall 18%).
+- [ ] NEXT — make the model rely on the action: drop history context during training, stronger action conditioning, compare the full 10x18 grid (`--pool 1`).
 
 ### Step 4: Plan with it
 - Goal-reaching in latent space: given current frame and a goal frame (e.g. "facing the couch"), use CEM / random shooting over action sequences, roll out with the world model, pick the sequence minimizing distance to the goal embedding.
