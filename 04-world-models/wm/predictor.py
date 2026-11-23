@@ -154,9 +154,11 @@ def chunks(g: torch.Tensor, size: int = 256):
 
 
 @torch.no_grad()
-def evaluate(model: Predictor, data: Latents) -> None:
+def evaluate(model: Predictor, data: Latents) -> dict:
+    """Print the test report; also return it as plain numbers (used by wm.plot_results)."""
     model.eval()
     dev = data.z.device
+    res: dict = {"rollout": {}, "per_action": {}, "sensitivity": {}}
     print("\nopen-loop rollouts (feature MSE, lower is better; ratio = model / copy-last)")
     for mode in sorted(set(data.modes)):
         print(f"  [{mode}]  {'steps':>5} {'sec':>4} {'model':>7} {'copy':>7} {'ratio':>6} {'n':>5}")
@@ -173,6 +175,7 @@ def evaluate(model: Predictor, data: Latents) -> None:
                 m_err.append(mse(pred, target).cpu())
                 c_err.append(mse(data.z[gc.to(dev)].float(), target).cpu())
             m, c = torch.cat(m_err).mean().item(), torch.cat(c_err).mean().item()
+            res["rollout"].setdefault(mode, {})[k] = {"model": m, "copy": c, "n": len(g)}
             print(f"  {'':8} {k:5d} {k / 2:4.1f} {m:7.4f} {c:7.4f} {m / c:6.2f} {len(g):5d}")
 
     print("\nper action, 1 step (ratio = model / copy-last)")
@@ -193,12 +196,14 @@ def evaluate(model: Predictor, data: Latents) -> None:
         for name in CANDIDATES:
             sel = mm & (act == ACTIONS.index(name))
             if sel.sum() >= 5:
-                parts.append(f"{name} {err[sel].mean() / copy[sel].mean():.2f} (n={int(sel.sum())})")
+                ratio = (err[sel].mean() / copy[sel].mean()).item()
+                res["per_action"].setdefault(mode, {})[name] = {"ratio": ratio, "n": int(sel.sum())}
+                parts.append(f"{name} {ratio:.2f} (n={int(sel.sum())})")
         print(f"  [{mode}] " + ", ".join(parts))
 
     print("\naction sensitivity: which action's prediction is closest to what really happened?")
     cand = torch.tensor([ACTIONS.index(c) for c in CANDIDATES], device=dev)
-    picks, spread, err_true = [], [], []
+    picks, spread = [], []
     for gc in chunks(g, 128):
         target = data.z[(gc + 1).to(dev)].float()
         preds = torch.stack([rollout(model, data, gc, c.expand(len(gc))[:, None])[:, 0] for c in cand], 1)
@@ -219,9 +224,15 @@ def evaluate(model: Predictor, data: Latents) -> None:
             if sel.sum() >= 5:
                 recall.append(f"{name} {(p[sel] == y[sel]).float().mean():.0%}")
         print(f"  [{mode}] picked the true action {acc:.1%} (always-majority {majority:.1%}), n={len(y)}")
-        print(f"    recall: " + ", ".join(recall))
+        print("    recall: " + ", ".join(recall))
         print(f"    turnLeft vs turnRight predictions differ by MSE {gap[mm].mean():.4f} "
               f"(copy-last error at 1 step: {copy[mm].mean():.4f})")
+        conf = np.zeros((len(CANDIDATES), len(CANDIDATES)), int)  # rows = true, cols = picked
+        for i, ti in enumerate(CANDIDATES):
+            for j, pj in enumerate(CANDIDATES):
+                conf[i, j] = int(((y == ACTIONS.index(ti)) & (p == ACTIONS.index(pj))).sum())
+        res["sensitivity"][mode] = {"accuracy": acc, "majority": majority, "confusion": conf.tolist()}
+    return res
 
 
 def train(epochs: int, seed: int, pool: int) -> None:

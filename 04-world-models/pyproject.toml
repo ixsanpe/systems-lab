@@ -14,3 +14,8 @@ dependencies = [
     "numpy>=2.5.5",
     "torch>=2.15.0",
 ]
+
+[dependency-groups]
+dev = [
+    "matplotlib>=3.11.2",
+]
