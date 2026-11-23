@@ -20,10 +20,15 @@ Reality check that shapes the plan: a weekend of vacuum driving is a few hours o
 - Write a viewer that plays an episode with the action/pose overlaid. If the overlay looks wrong, everything downstream is wrong.
 - Train/val split **by episode**, not by frame (adjacent frames leak).
 - Privacy: recordings stay in `data/` (gitignored). Blur people/screens/documents before sharing any clip.
+- [ ] PENDING — recording in a smaller space: in tight rooms the random policy pushes against furniture in 24–33% of forward steps (vs ~10% in open space). Make it escape faster (detect being blocked after 2 steps, back up 1–2 steps, turn ~75–150°, shorter forward runs), then record more 2-min driven episodes there.
 
 ### Step 2: Baselines before anything fancy
 - Copy-last-frame baseline: predict `o_{t+1} = o_t`. Every model must beat this, and on a slow robot it is surprisingly strong.
 - Inverse-dynamics sanity check: train a tiny classifier `(o_t, o_{t+1}) -> a_t`. If it can't recover the action from consecutive frames, the actions are mislabelled or desynced — fix Step 0/1 first.
+- Done (`wm/data.py`, `wm/copy_last.py`, `wm/inverse_dynamics.py`). Results on the time-based test split:
+  - Copy-last PSNR at 0.5 / 1 / 2 / 4 s: clean 15.6 / 14.1 / 13.0 / 12.6 dB, drive 16.3 / 14.9 / 13.8 / 13.1 dB (forward ~19 dB, turns ~13 dB at 0.5 s).
+  - Inverse dynamics (3 seeds): clean 74.7% vs 53.6% always-majority, drive 68.2% vs 47.7%. Clean is clearly best at offset 0.
+  - Video shift sweep on driven episodes (0.0–0.7 s): 0.42 s and 0.55 s tie (68–70%), smaller or larger shifts are worse → keep 0.42 s, which matches the measured latency. Driven test set is only 111 steps, so differences under ~5 points are noise.
 
 ### Step 3: Latent world model on a frozen encoder (the core)
 - Encode frames with a frozen pretrained encoder (DINOv2 patch features; optionally compare V-JEPA 2). Cache embeddings to disk once.
