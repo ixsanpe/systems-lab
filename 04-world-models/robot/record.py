@@ -1,8 +1,17 @@
-"""Step 1: record an episode (camera frames + actions + pose) with a random policy.
+"""Step 1: record an episode (camera frames + actions + pose).
 
-    uv run robot/record.py                   # 60 s at 2 Hz
+    uv run robot/record.py                   # drive: 60 s at 2 Hz, random policy
     uv run robot/record.py --seconds 120 --seed 3
+    uv run robot/record.py --mode clean --seconds 600   # watch a cleaning run
     uv run robot/record.py --rebuild data/episodes/<time> --shift 0.42
+
+Two modes:
+- drive (default): we send the commands, so actions are exact (see below).
+- clean: start a cleaning run in the app first; we only watch (no commands, the
+  robot is never stopped by us) and label each step afterwards from how the
+  pose changed (see label_from_motion). Long, whole-home, unsupervised episodes,
+  but the labels are inferred and the cleaning pattern is biased (lanes, U-turns,
+  wall following). Keep the two kinds apart (meta.json "mode").
 
 While recording, a random policy drives the robot one step at a time (2 Hz):
 it usually keeps its last action and sometimes picks a new one (forward is the
@@ -22,7 +31,11 @@ episode.npz, one row per step i:
     frames  [T, H, W, 3] uint8   o_i: the newest frame that arrived by t_i + shift
     actions [T] int              a_i: action during step i (index into action_names)
     pose    [T, 3] float32       x, y (mm, map frame), heading (deg), polled at t_i
+    pose_valid [T] bool          False where the robot didn't trust its pose (NaN)
+    motion  [T, 3] float32       pose change i -> i+1 in the robot frame:
+                                 forward mm, left mm, heading deg (NaN if unknown)
     t       [T] float64          t_i (time.monotonic)
+    labels_inferred              True in clean mode (actions come from `motion`)
 Commands take ~0.42 s to show in the video (latency.py), so o_i is taken at
 t_i + shift: it shows the world as it was when a_i was sent, and o_{i+1} then
 shows the effect of a_i.
@@ -56,7 +69,13 @@ from PIL import Image
 from probe import login, move_args
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "data" / "episodes"
-ACTIONS = ["stop", "forward", "turnLeft", "turnRight"]
+# Order matters: indices are stored in episode.npz (with the names alongside).
+ACTIONS = ["stop", "forward", "turnLeft", "turnRight", "backward", "unknown"]
+DRIVE_ACTIONS = ["stop", "forward", "turnLeft", "turnRight"]
+# Inferred-label thresholds per 0.5 s step, from the driven episodes: turns are
+# ~25 deg/step with ~0 mm travel; forward is 45-170 mm/step with ~0 deg.
+TURN_DEG = 10.0
+MOVE_MM = 25.0
 RAW_WIDTH = 640
 Pose = tuple[float, float, float]
 
@@ -74,6 +93,34 @@ def raw_pose(response: dict[str, Any]) -> tuple[Pose, bool] | None:
     if not pos:
         return None
     return (pos["x"], pos["y"], pos.get("a", 0)), not pos.get("invalid", 0)
+
+
+def motion(p0: Pose | None, p1: Pose | None) -> tuple[float, float, float]:
+    """Pose change p0 -> p1 in p0's robot frame: (forward mm, left mm, heading deg)."""
+    if p0 is None or p1 is None:
+        return (np.nan, np.nan, np.nan)
+    dx, dy = p1[0] - p0[0], p1[1] - p0[1]
+    h = np.radians(p0[2])
+    fwd = dx * np.cos(h) + dy * np.sin(h)
+    left = -dx * np.sin(h) + dy * np.cos(h)
+    dtheta = (p1[2] - p0[2] + 180) % 360 - 180
+    return (float(fwd), float(left), float(dtheta))
+
+
+def label_from_motion(m: tuple[float, float, float]) -> str:
+    """Discrete action that best explains one step's motion (turn wins over move)."""
+    fwd, _, dtheta = m
+    if np.isnan(fwd):
+        return "unknown"
+    if dtheta >= TURN_DEG:
+        return "turnLeft"  # heading increases when turning left
+    if dtheta <= -TURN_DEG:
+        return "turnRight"
+    if fwd >= MOVE_MM:
+        return "forward"
+    if fwd <= -MOVE_MM:
+        return "backward"
+    return "stop"
 
 
 class RandomPolicy:
@@ -205,7 +252,9 @@ async def record(args: argparse.Namespace) -> Path:
             await asyncio.sleep(2)  # let the stream settle (first frames are garbage)
             n_steps = int(args.seconds * args.hz)
             dt = 1 / args.hz
-            print(f"Recording {n_steps} steps at {args.hz:g} Hz. Ctrl-C to stop early.")
+            watching = args.mode == "clean"
+            print(f"Recording {n_steps} steps at {args.hz:g} Hz ({args.mode} mode). "
+                  "Ctrl-C to stop early.")
             t0 = time.monotonic()
             last_sent = "stop"
             for i in range(n_steps):
@@ -215,10 +264,11 @@ async def record(args: argparse.Namespace) -> Path:
                     print(f"Video stopped at step {i} ({live.status}); ending episode.")
                     break
                 pose_task = asyncio.create_task(poll_pose())
-                act = policy(poses)
+                # Clean mode: never command the robot; the label is inferred at build time.
+                act = "" if watching else policy(poses)
                 row: dict[str, Any] = {"step": i, "t_step": t_step, "action": act,
                                        "sent": False, "t_send": "", "ok": ""}
-                if act != last_sent:  # turns/forward keep going until the next command
+                if not watching and act != last_sent:  # moves keep going until the next command
                     row["t_send"] = time.monotonic()
                     row["ok"] = await send(act)
                     row["sent"] = True
@@ -230,12 +280,13 @@ async def record(args: argparse.Namespace) -> Path:
                 steps.append(row)
                 if i % 10 == 0:
                     shown = xya if valid else "INVALID"
-                    print(f"  step {i:4d}  {act:<10} pose={shown}  frames={len(store.rows)}")
+                    print(f"  step {i:4d}  {act or '-':<10} pose={shown}  frames={len(store.rows)}")
         except asyncio.CancelledError:  # Ctrl-C: asyncio.run cancels this task
-            print("Interrupted; stopping the robot and saving what we have.")
+            print("Interrupted; saving what we have.")
             asyncio.current_task().uncancel()  # finish normally so the episode is built
         finally:
-            await send("stop")
+            if args.mode == "drive":
+                await send("stop")  # clean mode: leave the cleaning run alone
             await live.stop()
 
     write_raw(out, store, steps, args)
@@ -252,14 +303,25 @@ def write_raw(out: Path, store: FrameStore, steps: list[dict[str, Any]], args: a
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
         w.writerows(steps)
-    meta = {"hz": args.hz, "seconds": args.seconds, "seed": args.seed, "keep": args.keep,
+    meta = {"mode": args.mode, "hz": args.hz, "seconds": args.seconds, "seed": args.seed,
+            "keep": args.keep,
             "actions": ACTIONS, "raw_width": RAW_WIDTH, "n_steps": len(steps),
             "n_frames": len(store.rows)}
     (out / "meta.json").write_text(json.dumps(meta, indent=2))
 
 
-def build_episode(out: Path, shift: float, size: tuple[int, int]) -> dict[str, np.ndarray]:
-    """Align raw frames to steps and write episode.npz (re-runnable from raw)."""
+def build_episode(
+    out: Path, shift: float, size: tuple[int, int], label_lag: int = 0
+) -> dict[str, np.ndarray]:
+    """Align raw frames to steps and write episode.npz (re-runnable from raw).
+
+    In clean mode a_i = label_from_motion(motion of step i + label_lag). The right
+    lag isn't known yet (pose is polled ~0.06 s into a step, the robot reacts in
+    ~0.3 s, the video lags ~0.42 s); check_labels() on driven episodes and the
+    Step 2 inverse-dynamics model are how we pick it.
+    """
+    meta_file = out / "meta.json"
+    mode = json.loads(meta_file.read_text()).get("mode", "drive") if meta_file.exists() else "drive"
     with (out / "frames.csv").open() as f:
         frames = [(float(r["t_mono"]), r["file"]) for r in csv.DictReader(f)]
     with (out / "steps.csv").open() as f:
@@ -268,8 +330,18 @@ def build_episode(out: Path, shift: float, size: tuple[int, int]) -> dict[str, n
         raise SystemExit(f"Nothing to build in {out} (frames={len(frames)}, steps={len(steps)})")
     times = np.array([t for t, _ in frames])
 
-    imgs, actions, pose, valid, t, gaps = [], [], [], [], [], []
-    for s in steps:
+    # Trusted pose per step (None if missing/invalid) and the motion to the next step.
+    # Old recordings have no "valid" column: a pose there is valid if present.
+    poses: list[Pose | None] = [
+        (float(s["x"]), float(s["y"]), float(s["a"]))
+        if s["x"] and s.get("valid", "True") == "True" else None
+        for s in steps
+    ]
+    moves = [motion(poses[k], poses[k + 1]) if k + 1 < len(poses) else (np.nan,) * 3
+             for k in range(len(poses))]
+
+    imgs, actions, pose, valid, mot, t, gaps = [], [], [], [], [], [], []
+    for k, s in enumerate(steps):
         target = float(s["t_step"]) + shift
         j = int(np.searchsorted(times, target, side="right")) - 1  # newest frame <= target
         if j < 0:
@@ -277,11 +349,14 @@ def build_episode(out: Path, shift: float, size: tuple[int, int]) -> dict[str, n
         gaps.append(target - times[j])
         img = Image.open(out / frames[j][1]).convert("RGB").resize(size, Image.BILINEAR)
         imgs.append(np.asarray(img))
-        actions.append(ACTIONS.index(s["action"]))
-        # Old recordings have no "valid" column: a pose there is valid if present.
-        ok = bool(s["x"]) and s.get("valid", "True") == "True"
-        pose.append((float(s["x"]), float(s["y"]), float(s["a"])) if ok else (np.nan,) * 3)
-        valid.append(ok)
+        if mode == "clean":
+            m = moves[k + label_lag] if 0 <= k + label_lag < len(moves) else (np.nan,) * 3
+            actions.append(ACTIONS.index(label_from_motion(m)))
+        else:
+            actions.append(ACTIONS.index(s["action"]))
+        pose.append(poses[k] if poses[k] else (np.nan,) * 3)
+        valid.append(poses[k] is not None)
+        mot.append(moves[k])
         t.append(float(s["t_step"]))
     if not imgs:
         raise SystemExit(f"No step in {out} has a frame at t + shift; nothing to build.")
@@ -291,13 +366,16 @@ def build_episode(out: Path, shift: float, size: tuple[int, int]) -> dict[str, n
         "actions": np.array(actions, dtype=np.int64),
         "pose": np.array(pose, dtype=np.float32),  # NaN where pose_valid is False
         "pose_valid": np.array(valid, dtype=bool),
+        "motion": np.array(mot, dtype=np.float32),
+        "labels_inferred": np.array(mode == "clean"),
         "t": np.array(t, dtype=np.float64),
         "action_names": np.array(ACTIONS),
         "shift": np.array(shift),
     }
     np.savez_compressed(out / "episode.npz", **ep)
-    counts = {name: int((ep["actions"] == k).sum()) for k, name in enumerate(ACTIONS)}
-    print(f"\nepisode.npz: {len(t)} steps, frames {ep['frames'].shape}, actions {counts}, "
+    counts = {name: int((ep["actions"] == k).sum()) for k, name in enumerate(ACTIONS)
+              if (ep["actions"] == k).any()}
+    print(f"\nepisode.npz ({mode}): {len(t)} steps, frames {ep['frames'].shape}, actions {counts}, "
           f"valid poses {int(ep['pose_valid'].sum())}/{len(t)}")
     print(f"frame age at t+shift: median {np.median(gaps) * 1000:.0f} ms, "
           f"max {np.max(gaps) * 1000:.0f} ms (should stay well under one step)")
@@ -306,6 +384,11 @@ def build_episode(out: Path, shift: float, size: tuple[int, int]) -> dict[str, n
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    parser.add_argument("--mode", choices=["drive", "clean"], default="drive",
+                        help="drive: random policy commands the robot; clean: only watch "
+                        "a cleaning run started in the app, infer actions from pose")
+    parser.add_argument("--label-lag", type=int, default=0,
+                        help="clean mode: label step i from the motion of step i + lag")
     parser.add_argument("--seconds", type=float, default=60)
     parser.add_argument("--hz", type=float, default=2.0, help="policy / episode step rate")
     parser.add_argument("--keep", type=float, default=0.75, help="prob. to repeat last action")
@@ -320,7 +403,7 @@ def main() -> None:
     args = parser.parse_args()
     logging.basicConfig(level=logging.WARNING)
     out = args.rebuild or asyncio.run(record(args))
-    build_episode(out, args.shift, tuple(args.size))
+    build_episode(out, args.shift, tuple(args.size), args.label_lag)
     print(f"Saved {out}")
 
 

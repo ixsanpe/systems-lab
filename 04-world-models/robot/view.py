@@ -35,6 +35,8 @@ COLOURS = {
     "forward": (80, 200, 120),
     "turnLeft": (90, 160, 255),
     "turnRight": (255, 160, 60),
+    "backward": (200, 90, 200),
+    "unknown": (90, 40, 40),
 }
 SCALE = 2  # frame upscaling for readability
 MAP = 288  # map panel size (px)
@@ -101,6 +103,7 @@ def render(ep_dir: Path, fps: float, sheet: bool) -> Path:
     frames, actions, pose, t = ep["frames"], ep["actions"], ep["pose"], ep["t"]
     names = [str(n) for n in ep["action_names"]]
     valid = ep["pose_valid"] if "pose_valid" in ep else ~np.isnan(pose[:, 0])
+    inferred = bool(ep["labels_inferred"]) if "labels_inferred" in ep else False
     n, h, w, _ = frames.shape
     fw, fh = w * SCALE, h * SCALE
     width, height = fw + MAP, max(fh, MAP) + BAR
@@ -118,7 +121,7 @@ def render(ep_dir: Path, fps: float, sheet: bool) -> Path:
             canvas.paste(Image.fromarray(frames[i]).resize((fw, fh), Image.NEAREST), (0, 0))
             canvas.paste(top.draw(i, actions, names), (fw, 0))
             draw_bar(ImageDraw.Draw(canvas), i, n, actions, names, pose, valid, t,
-                     y0=max(fh, MAP), width=width)
+                     y0=max(fh, MAP), width=width, inferred=inferred)
             for packet in stream.encode(av.VideoFrame.from_image(canvas)):
                 container.mux(packet)
             if sheet and i % max(1, n // 24) == 0:
@@ -138,9 +141,12 @@ def render(ep_dir: Path, fps: float, sheet: bool) -> Path:
 
 
 def draw_bar(d: ImageDraw.ImageDraw, i: int, n: int, actions: np.ndarray, names: list[str],
-             pose: np.ndarray, valid: np.ndarray, t: np.ndarray, *, y0: int, width: int) -> None:
+             pose: np.ndarray, valid: np.ndarray, t: np.ndarray, *, y0: int, width: int,
+             inferred: bool = False) -> None:
     act = names[actions[i]]
     nxt = names[actions[i + 1]] if i + 1 < n else "-"
+    if inferred:  # clean mode: labels come from the pose, not from commands we sent
+        nxt += "   (labels inferred from pose)"
     d.text((10, y0 + 8), f"step {i:3d}/{n - 1}   t={t[i] - t[0]:5.1f}s", font=FONT,
            fill=(230, 230, 230))
     d.rectangle((215, y0 + 6, 330, y0 + 28), fill=COLOURS[act])

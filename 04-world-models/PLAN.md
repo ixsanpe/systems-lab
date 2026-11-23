@@ -20,10 +20,15 @@ Reality check that shapes the plan: a weekend of vacuum driving is a few hours o
 - Write a viewer that plays an episode with the action/pose overlaid. If the overlay looks wrong, everything downstream is wrong.
 - Train/val split **by episode**, not by frame (adjacent frames leak).
 - Privacy: recordings stay in `data/` (gitignored). Blur people/screens/documents before sharing any clip.
+- [ ] PENDING — recording in a smaller space: in tight rooms the random policy pushes against furniture in 24–33% of forward steps (vs ~10% in open space). Make it escape faster (detect being blocked after 2 steps, back up 1–2 steps, turn ~75–150°, shorter forward runs), then record more 2-min driven episodes there.
 
 ### Step 2: Baselines before anything fancy
 - Copy-last-frame baseline: predict `o_{t+1} = o_t`. Every model must beat this, and on a slow robot it is surprisingly strong.
 - Inverse-dynamics sanity check: train a tiny classifier `(o_t, o_{t+1}) -> a_t`. If it can't recover the action from consecutive frames, the actions are mislabelled or desynced — fix Step 0/1 first.
+- Done (`wm/data.py`, `wm/copy_last.py`, `wm/inverse_dynamics.py`). Results on the time-based test split:
+  - Copy-last PSNR at 0.5 / 1 / 2 / 4 s: clean 15.6 / 14.1 / 13.0 / 12.6 dB, drive 16.3 / 14.9 / 13.8 / 13.1 dB (forward ~19 dB, turns ~13 dB at 0.5 s).
+  - Inverse dynamics (3 seeds): clean 74.7% vs 53.6% always-majority, drive 68.2% vs 47.7%. Clean is clearly best at offset 0.
+  - Video shift sweep on driven episodes (0.0–0.7 s): 0.42 s and 0.55 s tie (68–70%), smaller or larger shifts are worse → keep 0.42 s, which matches the measured latency. Driven test set is only 111 steps, so differences under ~5 points are noise.
 
 ### Step 3: Latent world model on a frozen encoder (the core)
 - Encode frames with a frozen pretrained encoder (DINOv2 patch features; optionally compare V-JEPA 2). Cache embeddings to disk once.
@@ -32,10 +37,30 @@ Reality check that shapes the plan: a weekend of vacuum driving is a few hours o
   - 1-step and multi-step open-loop rollout error vs. the copy-last baseline, per horizon.
   - Action sensitivity: same start, different actions -> do predicted latents actually diverge in the right direction? (A model that ignores actions can still get low loss.)
   - Nearest-neighbour decode: for a predicted latent, show the closest real frame in the dataset — cheap way to "see" predictions without a decoder.
+- First version done (`wm/encode.py`, `wm/predictor.py`): DINOv2 ViT-S/14 patches cached (2.6 ms/frame), 2x2-pooled to a 5x9 grid, 3-step context, 3.4 M-param transformer, epoch picked on a validation slice.
+  - Test error vs copy-last at 0.5 / 1 / 2 / 4 s: clean 0.80 / 0.76 / 0.78 / 0.88, drive 0.86 / 0.88 / 0.86 / 0.89. Turns improve most (~0.72), forward/stop least (~0.9).
+  - Action sensitivity: turnLeft vs turnRight predictions now differ, but stop vs forward barely (clean pick-the-true-action 47%, stop recall 18%).
+- Second version (default now): backward dropped from the actions the planner may pick (~1% of data; the first model matched 39% of real stops to it) + an action loss (weight 0.5): for half of each batch, predict under all 4 actions and cross-entropy on which prediction is closest to reality.
+  - Picks the true action: clean 79% (was 47%), drive 82% (was 58%) — above the Step 2 pixel classifier (75% / 68%). Stop is still weak (28%; inferred clean stops are noisy).
+  - Costs some prediction error, still better than copy-last everywhere: clean 0.86 / 0.84 / 0.86 / 0.91, drive 0.85 / 0.87 / 0.91 / 0.90. Weight 2 was too strong (worse than copy-last beyond 1 s).
+  - Figure: `uv run python -m wm.plot_results` -> `figures/step3_results.png`.
+- [ ] PENDING — improve the world model before Step 4 (planning needs both good predictions and actions that lead to different futures):
+  - Stop is recognised only 28% of the time (half of real stops look like forward). Check the inferred clean "stop" labels in the viewer (many are probably slow turns or tiny moves between pose updates), tighten `label_from_motion` or drop doubtful stops, and add stops to driven episodes.
+  - Win back the prediction accuracy the action loss cost (0.76–0.80 → 0.84–0.86 vs copy-last at 0.5–2 s): validation error was still falling at epoch 25, so train longer (40–60 epochs); try weights between 0.2 and 0.5.
+  - Try the full 10x18 grid (`--pool 1`, ~7x slower): forward over 0.5 s is a small change that 2x2 pooling may blur.
+  - More driven data (see the Step 1 small-space item): the driven test set is only 109 steps, so driven numbers swing by ±5 points.
 
 ### Step 4: Plan with it
 - Goal-reaching in latent space: given current frame and a goal frame (e.g. "facing the couch"), use CEM / random shooting over action sequences, roll out with the world model, pick the sequence minimizing distance to the goal embedding.
 - First evaluate offline (does the planned first action match what the robot actually did in the logged episode?), then — if manual control works — run it closed-loop on the real vacuum at low speed.
+- Built: `wm/plan.py` (exhaustive search over all 4^H sequences of stop/forward/turnLeft/turnRight — no CEM needed with 4 actions; cost = MSE of imagined final features vs goal; optional prefix for the action already being executed) and `robot/plan_live.py` (goal photo → displace the robot → MPC at 2 Hz → score with the pose, which the model never sees). One plan takes ~25 ms.
+- Offline (test split, goal = real frame k steps later): the real action sequence ranks at the top (median) of 16 for 1 s goals and in the top 3–7% of 256 for 2 s goals; when the robot really turned ≥30°, the plan turns the same way 81% (clean) / 88% (drive) at 1 s, 57–69% at 2 s.
+- Live, 2026-11-23 (turn-away trials): 1 of 10 reached the goal — turned 80° away, it turned back to 6° and stopped by itself. 57–83° away: 1/4 (one also drove 0.8 m and over-turned). 26–44° away: 0/6, the planner picked stop immediately every time.
+- Why it fails (replayed the live frames offline):
+  - The goal is only "visible" within ~20°: the real feature distance to the goal is ~3.2 at 30° and ~3.4 at 80°, and only drops (to ~1) close to it. Beyond that no short plan looks like progress. Other costs (cosine, global mean, a goal blurred by the model the same way) did not change this.
+  - The live start is a standstill, which training barely contains (random policy changes action mid-motion, cleaning rarely stops; 0 "stop, stop, turn" moments in the driven test set). From still history the model's predictions are blurry and the blurry "stop" prediction scores best — it imagines a change of ~1.0 even under stop (real: ~0.1).
+- [ ] TODO — record the missing data: give the random policy standstill-then-move moments (stop 2–4 steps, then turn or forward), record 2–3 driven episodes, retrain, and rerun the live turn-away trials.
+- [ ] TODO — reach goals further away: a cost with a wider basin (e.g. compare horizontal layout / shift of the features, or the global CLS token), intermediate goal images along the way, or longer horizons with CEM once the model is less blurry; then turn-away trials at 45–90° and pushed-back (`--kind back`) trials.
 
 ### Future steps
 #### Pixel decoder
